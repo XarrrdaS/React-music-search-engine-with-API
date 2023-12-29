@@ -6,7 +6,6 @@ function Categories({ onChooseCategory }){
     const choose = (category) => {
         onChooseCategory(category);
     };
-//dsadsadsadsa
     return(
         <div className='categories-container'>
             <button onClick={() => choose('all')}>All</button>
