@@ -43,7 +43,7 @@ function SearchInput(props){
         <div>
          <input 
             type="text" 
-            placeholder='Search for the artist'   
+            placeholder='Artist, track, podcast...'   
             className='input-field' 
             onKeyDown={handleKeyPress}
           />

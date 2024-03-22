@@ -443,7 +443,6 @@ img {
 body {
   margin: 0;
   padding: 0;
-  overflow: hidden;
 }
 
 .items {
@@ -539,15 +538,19 @@ body {
 body {
   margin: 0;
   position: relative;
+  font-family: 'Gill Sans', sans-serif;
 }
 .carousel-container {
   margin: 50px auto;
   overflow-x: auto;
   display: flex;
-  width: 80%;
+  width: 100%;
   gap: 100px;
   align-items: center;
   scroll-snap-type: x mandatory;
+  position: relative;
+  padding-top: 40px;
+  transition: transform 0.3s ease-in-out;
 }
 
 .carousel-container::-webkit-scrollbar {
@@ -575,4 +578,40 @@ body {
 }
 .carousel-item{
   margin-bottom: 30px;
+}
+.heading-artists{
+  top: 0px;
+  z-index: 999;
+  font-size: 30px;
+  font-weight: 700;
+  position: absolute;
+}
+.segment {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 50px auto;
+  width: 80%;
+  align-items: center;
+  scroll-snap-type: x mandatory;
+  position: relative;
+}
+.carousel-arrow {
+  position: absolute;
+  background-color: transparent; /* Remove default button background */
+  border: none; /* Remove default button border */
+  cursor: pointer; /* Indicate clickable behavior */
+  font-size: 50px; /* Adjust arrow size */
+  color: #29AB87; /* Arrow color (adjust as needed) */
+  z-index: 999
+}
+
+.carousel-arrow.left {
+  right: 70px; /* Position left arrow */
+  top: 0;
+}
+
+.carousel-arrow.right {
+  right: 10px; /* Position right arrow */
+  top: 0;
 }
