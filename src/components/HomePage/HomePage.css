@@ -569,7 +569,7 @@ body {
   background: #b1b3b399;
 }
 
-.artist-name{
+.carousel-container--description{
   text-align: center;
   display: block;
 }
@@ -579,7 +579,7 @@ body {
 .carousel-item{
   margin-bottom: 30px;
 }
-.heading-artists{
+.heading-carousel{
   top: 0px;
   z-index: 999;
   font-size: 30px;

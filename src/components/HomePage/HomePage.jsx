@@ -90,9 +90,9 @@ function HomePage() {
       ) : (
         <>
           <div className='segment'>
-            <p className='heading-artists'>Artists</p>
-            <button class="carousel-arrow left" aria-label="Previous Artists" onClick={() => scrollLeft('artist')}>&#8249;</button>
-            <button class="carousel-arrow right" aria-label="Next Artists" onClick={() => scrollRight('artist')}>&#8250;</button>
+            <p className='heading-carousel'>Artists</p>
+            <button class="carousel-arrow left" aria-label="Previous Artist" onClick={() => scrollLeft('artist')}>&#8249;</button>
+            <button class="carousel-arrow right" aria-label="Next Artist" onClick={() => scrollRight('artist')}>&#8250;</button>
 
             <div className="carousel-container artist-list">
               {popularData && popularData.artists && popularData.artists.data.map((artist, index) => (
@@ -101,16 +101,16 @@ function HomePage() {
                   key={index}
                 >
                   <img src={artist.picture_medium} alt={artist.name} />
-                  <span className='artist-name'>{artist.name}</span>
+                  <span className='carousel-container--description'>{artist.name}</span>
                 </div>
               ))}
             </div>
           </div>
 
           <div className='segment'>
-            <p className='heading-artists'>Tracks</p>
-            <button class="carousel-arrow left" aria-label="Previous Artists" onClick={() => scrollLeft('track')}>&#8249;</button>
-            <button class="carousel-arrow right" aria-label="Next Artists" onClick={() => scrollRight('track')}>&#8250;</button>
+            <p className='heading-carousel'>Tracks</p>
+            <button class="carousel-arrow left" aria-label="Previous Track" onClick={() => scrollLeft('track')}>&#8249;</button>
+            <button class="carousel-arrow right" aria-label="Next Track" onClick={() => scrollRight('track')}>&#8250;</button>
 
             <div className="carousel-container artist-list">
               {popularData && popularData.tracks && popularData.tracks.data.map((track, index) => (
@@ -119,8 +119,8 @@ function HomePage() {
                   key={index}
                 >
                   <img src={track.album.cover_medium} alt={track.title} />
-                  <span className='artist-name'>{track.title}</span>
-                  <span className='artist-name'>{track.artist.name}</span>
+                  <span className='carousel-container--description'>{track.title}</span>
+                  <span className='carousel-container--description'>{track.artist.name}</span>
 
                 </div>
               ))}
@@ -128,9 +128,9 @@ function HomePage() {
           </div>
 
           <div className='segment'>
-            <p className='heading-artists'>Playlists, You would love!</p>
-            <button class="carousel-arrow left" aria-label="Previous Artists" onClick={() => scrollLeft('playlist')}>&#8249;</button>
-            <button class="carousel-arrow right" aria-label="Next Artists" onClick={() => scrollRight('playlist')}>&#8250;</button>
+            <p className='heading-carousel'>Playlists, You would love!</p>
+            <button class="carousel-arrow left" aria-label="Previous Playlist" onClick={() => scrollLeft('playlist')}>&#8249;</button>
+            <button class="carousel-arrow right" aria-label="Next Playlist" onClick={() => scrollRight('playlist')}>&#8250;</button>
             <div className='carousel-container playlist-list'>
               {popularData && popularData.playlists && popularData.playlists.data.map((playlist, index) => (
                 <div
@@ -138,7 +138,7 @@ function HomePage() {
                   key={index}
                 >
                   <img src={playlist.picture_medium} alt={playlist.title} />
-                  <span className='artist-name'>{playlist.title}</span>
+                  <span className='carousel-container--description'>{playlist.title}</span>
                 </div>
               ))}
             </div>
