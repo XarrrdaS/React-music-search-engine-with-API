@@ -23,7 +23,7 @@ function HomePage() {
   };
 
   const fetchPopularData = useCallback(async () => {
-    let url = 'https://corsproxy.io/?https://api.deezer.com/chart/0';
+    let url = 'https://corsproxy.io/?https://api.deezer.com/chart';
 
     const response = await fetch(url);
     const data = await response.json();
@@ -35,17 +35,51 @@ function HomePage() {
   }, []);
 
 
-  const carouselContainer = document.querySelector('.carousel-container');
+  const carouselContainers = document.getElementsByClassName('carousel-container');
 
-
-
-  function handleCarouselScrollLeft() {
-    carouselContainer.scrollLeft -= 300;
+  function scrollLeft(item) {
+    if (item === 'artist') {
+      carouselContainers[0].scrollBy({
+        left: -500,
+        behavior: 'smooth'
+      });
+    }
+    if (item === 'track') {
+      carouselContainers[1].scrollBy({
+        left: -500,
+        behavior: 'smooth'
+      });
+    }
+    if (item === 'playlist') {
+      carouselContainers[2].scrollBy({
+        left: -500,
+        behavior: 'smooth'
+      });
+    }
   }
 
-  function handleCarouselScrollRight() {
-    carouselContainer.scrollLeft += 300;
+  function scrollRight(item) {
+    if (item === 'artist') {
+      carouselContainers[0].scrollBy({
+        left: 500,
+        behavior: 'smooth'
+      });
+    }
+    if (item === 'track') {
+      carouselContainers[1].scrollBy({
+        left: 500,
+        behavior: 'smooth'
+      });
+    }
+    if (item === 'playlist') {
+      carouselContainers[2].scrollBy({
+        left: 500,
+        behavior: 'smooth'
+      });
+    }
   }
+
+
   return (
     <div className='container'>
       {console.log(popularData)}
@@ -57,8 +91,8 @@ function HomePage() {
         <>
           <div className='segment'>
             <p className='heading-artists'>Artists</p>
-            <button class="carousel-arrow left" aria-label="Previous Artists" onClick={() => handleCarouselScrollLeft()}>&#8249;</button>
-            <button class="carousel-arrow right" aria-label="Next Artists" onClick={() => handleCarouselScrollRight()}>&#8250;</button>
+            <button class="carousel-arrow left" aria-label="Previous Artists" onClick={() => scrollLeft('artist')}>&#8249;</button>
+            <button class="carousel-arrow right" aria-label="Next Artists" onClick={() => scrollRight('artist')}>&#8250;</button>
 
             <div className="carousel-container artist-list">
               {popularData && popularData.artists && popularData.artists.data.map((artist, index) => (
@@ -74,9 +108,30 @@ function HomePage() {
           </div>
 
           <div className='segment'>
+            <p className='heading-artists'>Tracks</p>
+            <button class="carousel-arrow left" aria-label="Previous Artists" onClick={() => scrollLeft('track')}>&#8249;</button>
+            <button class="carousel-arrow right" aria-label="Next Artists" onClick={() => scrollRight('track')}>&#8250;</button>
 
+            <div className="carousel-container artist-list">
+              {popularData && popularData.tracks && popularData.tracks.data.map((track, index) => (
+                <div
+                  className='carousel-item'
+                  key={index}
+                >
+                  <img src={track.album.cover_medium} alt={track.title} />
+                  <span className='artist-name'>{track.title}</span>
+                  <span className='artist-name'>{track.artist.name}</span>
+
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='segment'>
             <p className='heading-artists'>Playlists, You would love!</p>
-            <div className='carousel-container'>
+            <button class="carousel-arrow left" aria-label="Previous Artists" onClick={() => scrollLeft('playlist')}>&#8249;</button>
+            <button class="carousel-arrow right" aria-label="Next Artists" onClick={() => scrollRight('playlist')}>&#8250;</button>
+            <div className='carousel-container playlist-list'>
               {popularData && popularData.playlists && popularData.playlists.data.map((playlist, index) => (
                 <div
                   className='carousel-item'
