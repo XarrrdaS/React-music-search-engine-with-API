@@ -35,17 +35,17 @@ function HomePage() {
   }, []);
 
 
-const carouselContainer = document.querySelector('.carousel-container');
+  const carouselContainer = document.querySelector('.carousel-container');
 
 
 
-function handleCarouselScrollLeft() {
-  carouselContainer.scrollLeft -= 300;
-}
+  function handleCarouselScrollLeft() {
+    carouselContainer.scrollLeft -= 300;
+  }
 
-function handleCarouselScrollRight() {
-  carouselContainer.scrollLeft += 300;
-}
+  function handleCarouselScrollRight() {
+    carouselContainer.scrollLeft += 300;
+  }
   return (
     <div className='container'>
       {console.log(popularData)}
@@ -58,13 +58,13 @@ function handleCarouselScrollRight() {
           <div className='segment'>
             <p className='heading-artists'>Artists</p>
             <button class="carousel-arrow left" aria-label="Previous Artists" onClick={() => handleCarouselScrollLeft()}>&#8249;</button>
-              <button class="carousel-arrow right" aria-label="Next Artists" onClick={() => handleCarouselScrollRight()}>&#8250;</button>
+            <button class="carousel-arrow right" aria-label="Next Artists" onClick={() => handleCarouselScrollRight()}>&#8250;</button>
 
             <div className="carousel-container artist-list">
               {popularData && popularData.artists && popularData.artists.data.map((artist, index) => (
                 <div
-                className='carousel-item'
-                key={index}
+                  className='carousel-item'
+                  key={index}
                 >
                   <img src={artist.picture_medium} alt={artist.name} />
                   <span className='artist-name'>{artist.name}</span>
