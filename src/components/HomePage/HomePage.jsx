@@ -40,19 +40,19 @@ function HomePage() {
   function scrollLeft(item) {
     if (item === 'artist') {
       carouselContainers[0].scrollBy({
-        left: -500,
+        left: -800,
         behavior: 'smooth'
       });
     }
     if (item === 'track') {
       carouselContainers[1].scrollBy({
-        left: -500,
+        left: -800,
         behavior: 'smooth'
       });
     }
     if (item === 'playlist') {
       carouselContainers[2].scrollBy({
-        left: -500,
+        left: -800,
         behavior: 'smooth'
       });
     }
@@ -61,19 +61,19 @@ function HomePage() {
   function scrollRight(item) {
     if (item === 'artist') {
       carouselContainers[0].scrollBy({
-        left: 500,
+        left: 800,
         behavior: 'smooth'
       });
     }
     if (item === 'track') {
       carouselContainers[1].scrollBy({
-        left: 500,
+        left: 800,
         behavior: 'smooth'
       });
     }
     if (item === 'playlist') {
       carouselContainers[2].scrollBy({
-        left: 500,
+        left: 800,
         behavior: 'smooth'
       });
     }
@@ -90,7 +90,7 @@ function HomePage() {
       ) : (
         <>
           <div className='segment'>
-            <p className='heading-carousel'>Artists</p>
+            <p className='heading-carousel'>Explore artists</p>
             <button class="carousel-arrow left" aria-label="Previous Artist" onClick={() => scrollLeft('artist')}>&#8249;</button>
             <button class="carousel-arrow right" aria-label="Next Artist" onClick={() => scrollRight('artist')}>&#8250;</button>
 
@@ -108,7 +108,7 @@ function HomePage() {
           </div>
 
           <div className='segment'>
-            <p className='heading-carousel'>Tracks</p>
+            <p className='heading-carousel'>Songs to savor</p>
             <button class="carousel-arrow left" aria-label="Previous Track" onClick={() => scrollLeft('track')}>&#8249;</button>
             <button class="carousel-arrow right" aria-label="Next Track" onClick={() => scrollRight('track')}>&#8250;</button>
 
@@ -128,7 +128,7 @@ function HomePage() {
           </div>
 
           <div className='segment'>
-            <p className='heading-carousel'>Playlists, You would love!</p>
+            <p className='heading-carousel'>Playlists you'll love</p>
             <button class="carousel-arrow left" aria-label="Previous Playlist" onClick={() => scrollLeft('playlist')}>&#8249;</button>
             <button class="carousel-arrow right" aria-label="Next Playlist" onClick={() => scrollRight('playlist')}>&#8250;</button>
             <div className='carousel-container playlist-list'>
