@@ -28,7 +28,7 @@ function ArtistInfo() {
     }
   };
   const artistMoreInfo = useCallback(async () => {
-    let url = `https://corsproxy.io/?https://api.deezer.com/artist/${artist.id}/top?limit=50`;
+    let url = `https://corsproxy.io/?https://api.deezer.com/artist/${artist.id}/top?limit=100`;
 
     const response = await fetch(url);
     const data = await response.json();
@@ -50,7 +50,7 @@ function ArtistInfo() {
       audioRef.current.play();
     }
   }, [currentTrack]);
-  
+
   return (
     <div>
       <Categories onChooseCategory={setCategoryChange} />
@@ -63,6 +63,7 @@ function ArtistInfo() {
             <table>
               <thead>
                 <tr>
+                  <th></th>
                   <th>TRACK</th>
                   <th>ARTIST</th>
                   <th>ALBUM</th>
