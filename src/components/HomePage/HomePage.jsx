@@ -82,7 +82,7 @@ function HomePage() {
   const navigate = useNavigate();
 
   const handleClick = (artist) => {
-    navigate('/artistinfo', { state: { artist } });
+    navigate('/artist-informations', { state: { artist } });
   };
   return (
     <div className='container'>
