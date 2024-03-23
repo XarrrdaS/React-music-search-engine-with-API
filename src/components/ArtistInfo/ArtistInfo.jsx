@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import Categories from '../Categories/Categories';
 import SearchInput from '../SearchInput/SearchInput';
@@ -14,6 +14,8 @@ function ArtistInfo() {
   const [song, setSong] = useState(null);
   const [popularData, setPopularData] = useState([]);
   const [moreInfo, setMoreInfo] = useState([])
+  const [currentTrack, setCurrentTrack] = useState('');
+  const audioRef = useRef();
 
   const handleData = (value) => {
     setIsSearching(true);
@@ -41,6 +43,14 @@ function ArtistInfo() {
     let seconds = (totalSeconds % 60).toString().padStart(2, '0');
     return `${minutes}:${seconds}`;
   };
+
+  useEffect(() => {
+    if (currentTrack) {
+      audioRef.current.src = currentTrack;
+      audioRef.current.play();
+    }
+  }, [currentTrack]);
+  
   return (
     <div>
       <Categories onChooseCategory={setCategoryChange} />
@@ -50,32 +60,35 @@ function ArtistInfo() {
           <>
             <h1>{artist.name}</h1>
             <img src={artist.picture_medium} alt={artist.name} />
-            <thead>
-              <tr>
-                <th>TRACK</th>
-                <th>ARTIST</th>
-                <th>ALBUM</th>
-                <th>DURATION</th>
-              </tr>
-            </thead>
-            <tbody>
-              {moreInfo ? moreInfo.map((track, index) => (
-                <tr key={track.id + 1}>
-                  <td key={track.id + 3}>{index + 1}</td>
-                  <td className='grid track-row' key={track.id + 2}>
-                    <img src={track.album.cover_small} alt={track.title} key={track.id + 1} className='images' />
-                    <audio controls className="play-button">
-                      <source src={track.preview} type="audio/mpeg" />
-                      Your browser does not support the audio element.
-                    </audio>
-                    <span>{track.title}</span>
-                  </td>
-                  <td key={track.id + 3}>{track.artist.name}</td>
-                  <td key={track.id + 4}>{track.album.title}</td>
-                  <td key={track.id + 5}>{duration(track.duration)}</td>
+            <table>
+              <thead>
+                <tr>
+                  <th>TRACK</th>
+                  <th>ARTIST</th>
+                  <th>ALBUM</th>
+                  <th>DURATION</th>
                 </tr>
-              )) : ''}
-            </tbody>
+              </thead>
+              <tbody>
+                {moreInfo ? moreInfo.map((track, index) => (
+                  <tr key={track.id + 1678}>
+                    <td key={track.id + 367845}>{index + 1}</td>
+                    <td className='grid track-row' key={track.id + 267455467}>
+                      <img src={track.album.cover_small} alt={track.title} key={track.id + 1} className='images' />
+                      <span>{track.title}</span>
+                      <button onClick={() => setCurrentTrack(track.preview)}>PLAY</button>
+                    </td>
+                    <td key={track.id + 3}>{track.artist.name}</td>
+                    <td key={track.id + 4}>{track.album.title}</td>
+                    <td key={track.id + 5}>{duration(track.duration)}</td>
+                  </tr>
+                )) : ''}
+              </tbody>
+            </table>
+
+            <audio ref={audioRef} controls className="play-button">
+              Your browser does not support the audio element.
+            </audio>
           </>
         )}
     </div>
