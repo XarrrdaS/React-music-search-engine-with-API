@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import Categories from '../Categories/Categories';
 import SearchInput from '../SearchInput/SearchInput';
 import DisplayData from '../DisplayData/DisplayData';
+import './ArtistInfo.css';
 
 function ArtistInfo() {
   const location = useLocation();
@@ -35,7 +36,6 @@ function ArtistInfo() {
   useEffect(() => {
     artistMoreInfo();
   }, []);
-  console.log(moreInfo)
   const duration = (totalSeconds) => {
     let minutes = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
     let seconds = (totalSeconds % 60).toString().padStart(2, '0');
@@ -51,26 +51,30 @@ function ArtistInfo() {
             <h1>{artist.name}</h1>
             <img src={artist.picture_medium} alt={artist.name} />
             <thead>
-                    <tr>
-                      <th>TRACK</th>
-                      <th>ARTIST</th>
-                      <th>ALBUM</th>
-                      <th>DURATION</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-            {moreInfo ? moreInfo.map((track, index) => (
-              <tr key={track.id + 1}>
-                <td key={track.id + 3}>{index + 1}</td>
-                <td className='grid' key={track.id + 2}>
-                  <img src={track.album.cover_small} alt={track.title} key={track.id + 1} className='images' />
-                  <span>{track.title}</span>
-                </td>
-                <td key={track.id + 3}>{track.artist.name}</td>
-                <td key={track.id + 4}>{track.album.title}</td>
-                <td key={track.id + 5}>{duration(track.duration)}</td>
+              <tr>
+                <th>TRACK</th>
+                <th>ARTIST</th>
+                <th>ALBUM</th>
+                <th>DURATION</th>
               </tr>
-            )) : ''}
+            </thead>
+            <tbody>
+              {moreInfo ? moreInfo.map((track, index) => (
+                <tr key={track.id + 1}>
+                  <td key={track.id + 3}>{index + 1}</td>
+                  <td className='grid track-row' key={track.id + 2}>
+                    <img src={track.album.cover_small} alt={track.title} key={track.id + 1} className='images' />
+                    <audio controls className="play-button">
+                      <source src={track.preview} type="audio/mpeg" />
+                      Your browser does not support the audio element.
+                    </audio>
+                    <span>{track.title}</span>
+                  </td>
+                  <td key={track.id + 3}>{track.artist.name}</td>
+                  <td key={track.id + 4}>{track.album.title}</td>
+                  <td key={track.id + 5}>{duration(track.duration)}</td>
+                </tr>
+              )) : ''}
             </tbody>
           </>
         )}

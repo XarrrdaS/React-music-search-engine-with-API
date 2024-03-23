@@ -1,0 +1,38 @@
+.track-row {
+    position: relative;
+  }
+  
+  .track-row:hover .play-button {
+    display: block;
+  }
+  
+  .play-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+  }
+
+  .track-row {
+    position: relative;
+  }
+  
+  .track-row:hover .play-button {
+    display: block;
+  }
+  
+  .play-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+  }
+  
+  .audio-controls {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+
+
+  
