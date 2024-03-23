@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './HomePage.css';
 import Categories from '../Categories/Categories';
 import DisplayData from '../DisplayData/DisplayData';
@@ -78,11 +79,14 @@ function HomePage() {
       });
     }
   }
+  const navigate = useNavigate(); // Use useNavigate
 
-
+  const handleClick = (artist) => {
+    navigate('/artistinfo', { state: { artist } }); // Przekazuj artystę jako stan
+  };
   return (
     <div className='container'>
-      {console.log(popularData)}
+      {/* {console.log(popularData)} */}
       <Categories onChooseCategory={setCategoryChange} />
       <SearchInput handleData={handleData} inputValue={inputValue} />
       {isSearching ? (
@@ -100,7 +104,7 @@ function HomePage() {
                   className='carousel-item'
                   key={index}
                 >
-                  <img src={artist.picture_medium} alt={artist.name} />
+                      <img src={artist.picture_medium} alt={artist.name} onClick={() => handleClick(artist)}/>
                   <span className='carousel-container--description'>{artist.name}</span>
                 </div>
               ))}

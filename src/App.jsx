@@ -1,13 +1,19 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './components/HomePage/HomePage';
+import ArtistInfo from './components/ArtistInfo/ArtistInfo';
 
-
-function App(){
+function App() {
   return (
-    <div className='App'>
-      <HomePage />
-    </div>
+    <Router>
+      <div className='App'>
+        <Routes>
+          <Route exact path="/" element={<HomePage />} />
+          <Route path="/artistinfo" element={<ArtistInfo />} />
+        </Routes>
+      </div>
+    </Router>
   );
-};
+}
 
 export default App;
