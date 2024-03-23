@@ -79,10 +79,10 @@ function HomePage() {
       });
     }
   }
-  const navigate = useNavigate(); // Use useNavigate
+  const navigate = useNavigate();
 
   const handleClick = (artist) => {
-    navigate('/artistinfo', { state: { artist } }); // Przekazuj artystę jako stan
+    navigate('/artistinfo', { state: { artist } });
   };
   return (
     <div className='container'>
