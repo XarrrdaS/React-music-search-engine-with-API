@@ -113,8 +113,8 @@ function HomePage() {
 
           <div className='segment'>
             <p className='heading-carousel'>Songs to savor</p>
-            <button class="carousel-arrow left" aria-label="Previous Track" onClick={() => scrollLeft('track')}>&#8249;</button>
-            <button class="carousel-arrow right" aria-label="Next Track" onClick={() => scrollRight('track')}>&#8250;</button>
+            <button className="carousel-arrow left" aria-label="Previous Track" onClick={() => scrollLeft('track')}>&#8249;</button>
+            <button className="carousel-arrow right" aria-label="Next Track" onClick={() => scrollRight('track')}>&#8250;</button>
 
             <div className="carousel-container artist-list">
               {popularData && popularData.tracks && popularData.tracks.data.map((track, index) => (
@@ -133,8 +133,8 @@ function HomePage() {
 
           <div className='segment'>
             <p className='heading-carousel'>Playlists you'll love</p>
-            <button class="carousel-arrow left" aria-label="Previous Playlist" onClick={() => scrollLeft('playlist')}>&#8249;</button>
-            <button class="carousel-arrow right" aria-label="Next Playlist" onClick={() => scrollRight('playlist')}>&#8250;</button>
+            <button className="carousel-arrow left" aria-label="Previous Playlist" onClick={() => scrollLeft('playlist')}>&#8249;</button>
+            <button className="carousel-arrow right" aria-label="Next Playlist" onClick={() => scrollRight('playlist')}>&#8250;</button>
             <div className='carousel-container playlist-list'>
               {popularData && popularData.playlists && popularData.playlists.data.map((playlist, index) => (
                 <div
