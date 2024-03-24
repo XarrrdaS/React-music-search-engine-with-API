@@ -44,13 +44,22 @@ function AlbumInfo() {
         }
     }, [currentTrack]);
 
+
     const duration = (totalSeconds) => {
-        let minutes = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+        let hours = Math.floor(totalSeconds / 3600).toString().padStart(2, '0');
+        let minutes = Math.floor((totalSeconds % 3600) / 60).toString().padStart(2, '0');
         let seconds = (totalSeconds % 60).toString().padStart(2, '0');
-        return `${minutes}:${seconds}`;
+
+        if (hours > 0) {
+            return `${hours}:${minutes}:${seconds}`;
+        } else {
+            return `${minutes}:${seconds}`;
+        }
     };
 
-// console.log(albumList)
+    // console.log(albumList)
+    const totalDuration = albumList.reduce((total, track) => total + track.duration, 0);
+
     return (
         <>
             <Categories onChooseCategory={setCategoryChange} />
@@ -60,6 +69,7 @@ function AlbumInfo() {
                     <img src={artistAlbum.album.cover_medium} alt="Album poster" />
                     <p>{artistAlbum.album.title}</p>
                     <p>{artistAlbum.artist.name}</p>
+                    <p>Total Duration: {duration(totalDuration)}</p>
                     <table>
                         <thead>
                             <tr>
