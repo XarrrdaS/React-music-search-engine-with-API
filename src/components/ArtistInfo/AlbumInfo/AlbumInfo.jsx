@@ -59,6 +59,7 @@ function AlbumInfo() {
 
     // console.log(albumList)
     const totalDuration = albumList.reduce((total, track) => total + track.duration, 0);
+    const numberOfTracks = albumList.length;
 
     return (
         <>
@@ -67,9 +68,10 @@ function AlbumInfo() {
             {isSearching ? <DisplayData handleData={handleData} song={song} /> : (
                 <div>
                     <img src={artistAlbum.album.cover_medium} alt="Album poster" />
-                    <p>{artistAlbum.album.title}</p>
-                    <p>{artistAlbum.artist.name}</p>
+                    <p>Album title: {artistAlbum.album.title}</p>
+                    <p>Artist: {artistAlbum.artist.name}</p>
                     <p>Total Duration: {duration(totalDuration)}</p>
+                    <p>Number of tracks: {albumList.length}</p>
                     <table>
                         <thead>
                             <tr>
