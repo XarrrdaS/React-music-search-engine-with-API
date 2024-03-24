@@ -43,22 +43,46 @@ function AlbumInfo() {
             audioRef.current.play();
         }
     }, [currentTrack]);
-    
+
+    const duration = (totalSeconds) => {
+        let minutes = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+        let seconds = (totalSeconds % 60).toString().padStart(2, '0');
+        return `${minutes}:${seconds}`;
+    };
+
+
     return (
         <>
             <Categories onChooseCategory={setCategoryChange} />
             <SearchInput handleData={handleData} inputValue={inputValue} />
             {isSearching ? <DisplayData handleData={handleData} song={song} /> : (
                 <div>
-                    {albumList.map((track, index) => {
-                        return (
-                            <tr key={index}>
-                                <td>{track.title}</td>
-                                <button onClick={() => setCurrentTrack(track.preview)}>PLAY</button>
-                                <td>{track.artist.name}</td>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th>TRACK</th>
+                                <th>ARTIST</th>
+                                <th>DURATION</th>
                             </tr>
-                        )
-                    })}
+                        </thead>
+                        <tbody>
+                            {albumList.map((track, index) => {
+                                return (
+                                    <tr key={index}>
+                                        <td>{index + 1}</td>
+                                        <td><img src={`https://e-cdns-images.dzcdn.net/images/artist/${track.md5_image}/56x56-000000-80-0-0.jpg`} /></td>
+                                        <td>{track.title}
+                                            <button onClick={() => setCurrentTrack(track.preview)}>PLAY</button>
+                                        </td>
+                                        <td>{track.artist.name}</td>
+                                        <td key={track.id + 5}>{duration(track.duration)}</td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </table>
                 </div>
             )}
             <audio ref={audioRef} controls className="play-button">
