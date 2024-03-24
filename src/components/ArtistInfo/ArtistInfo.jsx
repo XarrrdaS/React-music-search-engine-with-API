@@ -127,7 +127,7 @@ function ArtistInfo() {
                     <td key={track.id + 4324}>
                       {track.contributors.map(contributor => contributor.name).join(', ')}
                     </td>
-                    <td key={track.id + 1234} onClick={() => albumInfo(track.album.tracklist)}>{track.album.title}</td>
+                    <td key={track.id + 1234} onClick={() => albumInfo(track)}>{track.album.title}</td>
                     <td key={track.id + 3215}>{duration(track.duration)}</td>
                   </tr>
                 )) : ''}

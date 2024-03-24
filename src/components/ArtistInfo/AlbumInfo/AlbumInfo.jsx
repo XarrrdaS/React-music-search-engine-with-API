@@ -24,12 +24,12 @@ function AlbumInfo() {
             setIsSearching(false);
         }
     };
-
+    // console.log(artistAlbum)
     const albumInfo = useCallback(async () => {
         let cors = 'https://corsproxy.io/?'
-        const response = await fetch(cors + artistAlbum);
+        const response = await fetch(cors + artistAlbum.album.tracklist);
         const data = await response.json();
-        console.log(data)
+        // console.log(data)
         setAlbumList(data.data);
     }, []);
 
@@ -50,20 +50,22 @@ function AlbumInfo() {
         return `${minutes}:${seconds}`;
     };
 
-
+// console.log(albumList)
     return (
         <>
             <Categories onChooseCategory={setCategoryChange} />
             <SearchInput handleData={handleData} inputValue={inputValue} />
             {isSearching ? <DisplayData handleData={handleData} song={song} /> : (
                 <div>
+                    <img src={artistAlbum.album.cover_medium} alt="Album poster" />
+                    <p>{artistAlbum.album.title}</p>
+                    <p>{artistAlbum.artist.name}</p>
                     <table>
                         <thead>
                             <tr>
                                 <th></th>
                                 <th></th>
                                 <th>TRACK</th>
-                                <th>ARTIST</th>
                                 <th>DURATION</th>
                             </tr>
                         </thead>
@@ -76,7 +78,6 @@ function AlbumInfo() {
                                         <td>{track.title}
                                             <button onClick={() => setCurrentTrack(track.preview)}>PLAY</button>
                                         </td>
-                                        <td>{track.artist.name}</td>
                                         <td key={track.id + 5}>{duration(track.duration)}</td>
                                     </tr>
                                 )
