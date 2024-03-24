@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import { useLocation } from 'react-router-dom';
 import Categories from "../../Categories/Categories";
 import SearchInput from "../../SearchInput/SearchInput";
@@ -11,6 +11,8 @@ function AlbumInfo() {
     const [categoryChange, setCategoryChange] = useState('all')
     const [isSearching, setIsSearching] = useState(false)
     const [song, setSong] = useState(null);
+    const [currentTrack, setCurrentTrack] = useState('');
+    const audioRef = useRef();
 
     const handleData = (value) => {
         setIsSearching(true);
@@ -30,10 +32,17 @@ function AlbumInfo() {
         console.log(data)
         setAlbumList(data.data);
     }, []);
-    
+
     useEffect(() => {
         albumInfo()
     }, [albumInfo])
+
+    useEffect(() => {
+        if (currentTrack) {
+            audioRef.current.src = currentTrack;
+            audioRef.current.play();
+        }
+    }, [currentTrack]);
     
     return (
         <>
@@ -45,13 +54,18 @@ function AlbumInfo() {
                         return (
                             <tr key={index}>
                                 <td>{track.title}</td>
+                                <button onClick={() => setCurrentTrack(track.preview)}>PLAY</button>
                                 <td>{track.artist.name}</td>
                             </tr>
                         )
                     })}
                 </div>
             )}
+            <audio ref={audioRef} controls className="play-button">
+                Your browser does not support the audio element.
+            </audio>
         </>
     );
 }
+
 export default AlbumInfo

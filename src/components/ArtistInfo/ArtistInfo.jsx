@@ -29,6 +29,7 @@ function ArtistInfo() {
   };
   const artistMoreInfo = useCallback(async () => {
     let url = `https://corsproxy.io/?https://api.deezer.com/artist/${artist.id}/top?limit=100`;
+    console.log(url)
     const response = await fetch(url);
     const data = await response.json();
     // console.log(data)
@@ -72,7 +73,7 @@ function ArtistInfo() {
       <Categories onChooseCategory={setCategoryChange} />
       <SearchInput handleData={handleData} inputValue={inputValue} />
       {isSearching ? <DisplayData handleData={handleData} song={song} /> :
-      (
+        (
           <>
             <h1>{artist.name}</h1>
             <img src={artist.picture_medium} alt={artist.name} />
@@ -95,7 +96,9 @@ function ArtistInfo() {
                       <span>{track.title}</span>
                       <button onClick={() => setCurrentTrack(track.preview)}>PLAY</button>
                     </td>
-                    <td key={track.id + 3}>{track.artist.name}</td>
+                    <td key={track.id + 4}>
+                      {track.contributors.map(contributor => contributor.name).join(', ')}
+                    </td>
                     <td key={track.id + 4} onClick={() => albumInfo(track.album.tracklist)}>{track.album.title}</td>
                     <td key={track.id + 5}>{duration(track.duration)}</td>
                   </tr>
@@ -107,7 +110,7 @@ function ArtistInfo() {
               Your browser does not support the audio element.
             </audio>
           </>
-        
+
         )}
     </div>
   );
