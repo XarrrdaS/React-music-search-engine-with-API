@@ -27,18 +27,43 @@ function ArtistInfo() {
       setIsSearching(false);
     }
   };
+  const [url, setUrl] = useState(`https://corsproxy.io/?https://api.deezer.com/artist/${artist.id}/top?limit=25`);
+  const [nextUrl, setNextUrl] = useState('');
+  const [prevUrl, setPrevUrl] = useState('');
+  
   const artistMoreInfo = useCallback(async () => {
-    let url = `https://corsproxy.io/?https://api.deezer.com/artist/${artist.id}/top?limit=100`;
-    console.log(url)
     const response = await fetch(url);
     const data = await response.json();
-    // console.log(data)
     setMoreInfo(data.data);
-  }, []);
-
+  
+    if (data.next) {
+      setNextUrl(`https://corsproxy.io/?${data.next}`);
+    } else {
+      setNextUrl('');
+    }
+    if (data.prev) {
+      setPrevUrl(`https://corsproxy.io/?${data.prev}`);
+    } else {
+      setPrevUrl('');
+    }
+  }, [url]);
+  
+  const [startIndex, setStartIndex] = useState(0);
+  
+  const handleChangeNext = (direction) => {
+    if (direction === 'next' && nextUrl) {
+      setUrl(nextUrl);
+      setStartIndex(prevIndex => prevIndex + 25);
+    } else if (direction === 'prev' && prevUrl && startIndex > 0) {
+      setUrl(prevUrl);
+      setStartIndex(prevIndex => prevIndex - 25);
+    }
+  };
+  
   useEffect(() => {
     artistMoreInfo();
-  }, []);
+  }, [url, artistMoreInfo]);
+  
   const duration = (totalSeconds) => {
     let minutes = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
     let seconds = (totalSeconds % 60).toString().padStart(2, '0');
@@ -77,6 +102,9 @@ function ArtistInfo() {
           <>
             <h1>{artist.name}</h1>
             <img src={artist.picture_medium} alt={artist.name} />
+            <button onClick={() => handleChangeNext('prev')}>PREVIOUS</button>
+            <button onClick={() => handleChangeNext('next')}>NEXT</button>
+
             <table>
               <thead>
                 <tr>
@@ -90,17 +118,17 @@ function ArtistInfo() {
               <tbody>
                 {moreInfo ? moreInfo.map((track, index) => (
                   <tr key={track.id + 1678}>
-                    <td key={track.id + 367845}>{index + 1}</td>
+                    <td key={track.id + 367845}>{startIndex + index + 1}</td>
                     <td className='grid track-row' key={track.id + 267455467}>
                       <img src={track.album.cover_small} alt={track.title} key={track.id + 1} className='images' />
-                      <span>{track.title}</span>
-                      <button onClick={() => setCurrentTrack(track.preview)}>PLAY</button>
+                      <span key={track.id + 98}>{track.title}</span>
+                      <button key={track.id + 198} onClick={() => setCurrentTrack(track.preview)}>PLAY</button>
                     </td>
-                    <td key={track.id + 4}>
+                    <td key={track.id + 4324}>
                       {track.contributors.map(contributor => contributor.name).join(', ')}
                     </td>
-                    <td key={track.id + 4} onClick={() => albumInfo(track.album.tracklist)}>{track.album.title}</td>
-                    <td key={track.id + 5}>{duration(track.duration)}</td>
+                    <td key={track.id + 1234} onClick={() => albumInfo(track.album.tracklist)}>{track.album.title}</td>
+                    <td key={track.id + 3215}>{duration(track.duration)}</td>
                   </tr>
                 )) : ''}
               </tbody>
