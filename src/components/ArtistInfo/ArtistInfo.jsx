@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Categories from '../Categories/Categories';
 import SearchInput from '../SearchInput/SearchInput';
 import DisplayData from '../DisplayData/DisplayData';
@@ -29,9 +29,9 @@ function ArtistInfo() {
   };
   const artistMoreInfo = useCallback(async () => {
     let url = `https://corsproxy.io/?https://api.deezer.com/artist/${artist.id}/top?limit=100`;
-
     const response = await fetch(url);
     const data = await response.json();
+    // console.log(data)
     setMoreInfo(data.data);
   }, []);
 
@@ -51,12 +51,28 @@ function ArtistInfo() {
     }
   }, [currentTrack]);
 
+  // const [albumList, setAlbumList] = useState([])
+  // const [isAlbumPressed, setIsAlbumPressed] = useState(false);
+  // const albumInfo = useCallback(async (albumURLfromTrack) => {
+  //   let cors = 'https://corsproxy.io/?'
+  //   const response = await fetch(cors + albumURLfromTrack);
+  //   const data = await response.json();
+  //   console.log(data)
+  //   setAlbumList(data.data);
+  //   setIsAlbumPressed(true);
+  // }, []);
+
+  const navigate = useNavigate();
+
+  const albumInfo = (artistAlbums) => {
+    navigate('/artist-informations/album', { state: { artistAlbums } });
+  };
   return (
     <div>
       <Categories onChooseCategory={setCategoryChange} />
       <SearchInput handleData={handleData} inputValue={inputValue} />
       {isSearching ? <DisplayData handleData={handleData} song={song} /> :
-        (
+      (
           <>
             <h1>{artist.name}</h1>
             <img src={artist.picture_medium} alt={artist.name} />
@@ -80,7 +96,7 @@ function ArtistInfo() {
                       <button onClick={() => setCurrentTrack(track.preview)}>PLAY</button>
                     </td>
                     <td key={track.id + 3}>{track.artist.name}</td>
-                    <td key={track.id + 4}>{track.album.title}</td>
+                    <td key={track.id + 4} onClick={() => albumInfo(track.album.tracklist)}>{track.album.title}</td>
                     <td key={track.id + 5}>{duration(track.duration)}</td>
                   </tr>
                 )) : ''}
@@ -91,6 +107,7 @@ function ArtistInfo() {
               Your browser does not support the audio element.
             </audio>
           </>
+        
         )}
     </div>
   );

@@ -95,8 +95,8 @@ function HomePage() {
         <>
           <div className='segment'>
             <p className='heading-carousel'>Explore artists</p>
-            <button class="carousel-arrow left" aria-label="Previous Artist" onClick={() => scrollLeft('artist')}>&#8249;</button>
-            <button class="carousel-arrow right" aria-label="Next Artist" onClick={() => scrollRight('artist')}>&#8250;</button>
+            <button className="carousel-arrow left" aria-label="Previous Artist" onClick={() => scrollLeft('artist')}>&#8249;</button>
+            <button className="carousel-arrow right" aria-label="Next Artist" onClick={() => scrollRight('artist')}>&#8250;</button>
 
             <div className="carousel-container artist-list">
               {popularData && popularData.artists && popularData.artists.data.map((artist, index) => (
