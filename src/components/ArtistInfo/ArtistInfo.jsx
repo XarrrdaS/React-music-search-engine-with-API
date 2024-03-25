@@ -26,7 +26,7 @@ function ArtistInfo() {
       setIsSearching(false);
     }
   };
-  const [url, setUrl] = useState(`https://corsproxy.io/?https://api.deezer.com/artist/${artist.id}/top?limit=25`);
+  const [url, setUrl] = useState(`/proxy/artist/${artist.id}/top?limit=25`);
   const [nextUrl, setNextUrl] = useState('');
   const [prevUrl, setPrevUrl] = useState('');
   
@@ -36,12 +36,12 @@ function ArtistInfo() {
     setMoreInfo(data.data);
   
     if (data.next) {
-      setNextUrl(`https://corsproxy.io/?${data.next}`);
+      setNextUrl(data.next.replace('https://api.deezer.com', '/proxy'));
     } else {
       setNextUrl('');
     }
     if (data.prev) {
-      setPrevUrl(`https://corsproxy.io/?${data.prev}`);
+      setPrevUrl(data.prev.replace('https://api.deezer.com', '/proxy'));
     } else {
       setPrevUrl('');
     }

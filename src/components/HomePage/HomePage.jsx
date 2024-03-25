@@ -24,7 +24,7 @@ function HomePage() {
   };
 
   const fetchPopularData = useCallback(async () => {
-    let url = 'https://corsproxy.io/?https://api.deezer.com/chart';
+    let url = '/proxy/chart';
 
     const response = await fetch(url);
     const data = await response.json();

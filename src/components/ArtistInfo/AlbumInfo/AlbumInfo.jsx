@@ -26,8 +26,8 @@ function AlbumInfo() {
     };
     // console.log(artistAlbum)
     const albumInfo = useCallback(async () => {
-        let cors = 'https://corsproxy.io/?'
-        const response = await fetch(cors + artistAlbum.album.tracklist);
+        let url = artistAlbum.album.tracklist.replace('https://api.deezer.com', '/proxy');
+        const response = await fetch(url);
         const data = await response.json();
         // console.log(data)
         setAlbumList(data.data);

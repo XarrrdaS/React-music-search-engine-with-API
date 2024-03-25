@@ -15,7 +15,7 @@ function SearchInput(props){
     
 
     const fetchData = useCallback(async (searchTerm) => {
-        let url = `https://corsproxy.io/?https://api.deezer.com/search?q=${searchTerm}`;
+        let url = `/proxy/search?q=${searchTerm}`;
         const response = await fetch(url);
         const data = await response.json();
         setSong(data.data);
