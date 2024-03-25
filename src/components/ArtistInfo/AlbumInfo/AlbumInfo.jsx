@@ -25,12 +25,17 @@ function AlbumInfo() {
         }
     };
     // console.log(artistAlbum)
+    const [isLoading, setIsLoading] = useState(true);
     const albumInfo = useCallback(async () => {
         let url = artistAlbum.album.tracklist.replace('https://api.deezer.com', '/proxy');
         const response = await fetch(url);
         const data = await response.json();
-        // console.log(data)
-        setAlbumList(data.data);
+        if (response.ok){
+            setAlbumList(data.data);
+            setIsLoading(false);
+        }else{
+            setIsLoading(true);
+        }
     }, []);
 
     useEffect(() => {
@@ -59,7 +64,6 @@ function AlbumInfo() {
 
     // console.log(albumList)
     const totalDuration = albumList.reduce((total, track) => total + track.duration, 0);
-    const numberOfTracks = albumList.length;
 
     return (
         <>
@@ -72,6 +76,7 @@ function AlbumInfo() {
                     <p>Artist: {artistAlbum.artist.name}</p>
                     <p>Total Duration: {duration(totalDuration)}</p>
                     <p>Number of tracks: {albumList.length}</p>
+                    {isLoading ? <h1>Loading...</h1> : (
                     <table>
                         <thead>
                             <tr>
@@ -96,6 +101,7 @@ function AlbumInfo() {
                             })}
                         </tbody>
                     </table>
+                    )}
                 </div>
             )}
             <audio ref={audioRef} controls className="play-button">

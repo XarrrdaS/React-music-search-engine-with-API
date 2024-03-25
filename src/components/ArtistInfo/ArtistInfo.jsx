@@ -29,21 +29,26 @@ function ArtistInfo() {
   const [url, setUrl] = useState(`/proxy/artist/${artist.id}/top?limit=25`);
   const [nextUrl, setNextUrl] = useState('');
   const [prevUrl, setPrevUrl] = useState('');
-  
+  const [isLoading, setIsLoading] = useState(true);
+
   const artistMoreInfo = useCallback(async () => {
     const response = await fetch(url);
     const data = await response.json();
-    setMoreInfo(data.data);
-  
-    if (data.next) {
-      setNextUrl(data.next.replace('https://api.deezer.com', '/proxy'));
+    if (response.ok) {
+      setMoreInfo(data.data);
+      setIsLoading(false);
+      if (data.next) {
+        setNextUrl(data.next.replace('https://api.deezer.com', '/proxy'));
+      } else {
+        setNextUrl('');
+      }
+      if (data.prev) {
+        setPrevUrl(data.prev.replace('https://api.deezer.com', '/proxy'));
+      } else {
+        setPrevUrl('');
+      }
     } else {
-      setNextUrl('');
-    }
-    if (data.prev) {
-      setPrevUrl(data.prev.replace('https://api.deezer.com', '/proxy'));
-    } else {
-      setPrevUrl('');
+      setIsLoading(true);
     }
   }, [url]);
   
@@ -51,9 +56,11 @@ function ArtistInfo() {
   
   const handleChangeNext = (direction) => {
     if (direction === 'next' && nextUrl) {
+      setIsLoading(true);
       setUrl(nextUrl);
       setStartIndex(prevIndex => prevIndex + 25);
     } else if (direction === 'prev' && prevUrl && startIndex > 0) {
+      setIsLoading(true);
       setUrl(prevUrl);
       setStartIndex(prevIndex => prevIndex - 25);
     }
@@ -104,7 +111,7 @@ function ArtistInfo() {
             <img src={artist.picture_medium} alt={artist.name} />
             <button onClick={() => handleChangeNext('prev')}>PREVIOUS</button>
             <button onClick={() => handleChangeNext('next')}>NEXT</button>
-
+            {isLoading ? <h1>Loading...</h1> : (
             <table>
               <thead>
                 <tr>
@@ -133,6 +140,7 @@ function ArtistInfo() {
                 )) : ''}
               </tbody>
             </table>
+            )}
 
             <audio ref={audioRef} controls className="play-button">
               Your browser does not support the audio element.

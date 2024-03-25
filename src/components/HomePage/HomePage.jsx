@@ -22,13 +22,19 @@ function HomePage() {
       setIsSearching(false);
     }
   };
-
+  const [isLoading, setIsLoading] = useState(true);
   const fetchPopularData = useCallback(async () => {
     let url = '/proxy/chart';
-
     const response = await fetch(url);
     const data = await response.json();
-    setPopularData(data);
+    
+    if (response.ok) {
+      setPopularData(data);
+      setIsLoading(false);
+      console.log('Success:', data);
+    } else {
+      console.log('Error:', response.status);
+    }
   }, []);
 
   useEffect(() => {
@@ -92,6 +98,7 @@ function HomePage() {
       {isSearching ? (
         <DisplayData handleData={handleData} song={song} />
       ) : (
+        isLoading ? <h1>Loading...</h1> : (
         <>
           <div className='segment'>
             <p className='heading-carousel'>Explore artists</p>
@@ -148,6 +155,7 @@ function HomePage() {
             </div>
           </div>
         </>
+        )
       )}
     </div>
   );
