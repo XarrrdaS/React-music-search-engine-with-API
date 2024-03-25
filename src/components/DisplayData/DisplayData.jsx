@@ -8,6 +8,7 @@ function DisplaySong(props){
       let seconds = (totalSeconds % 60).toString().padStart(2, '0');
       return `${minutes}:${seconds}`;
     };
+    
     return(
         <div className='container'>
                 <table className='main-table'>
@@ -26,6 +27,7 @@ function DisplaySong(props){
                       <td className='grid' key={i.id + 2}>
                         <img src={i.album.cover_small} alt={i.title} key={i.id + 1} className='images'/>
                         <span>{i.title}</span>
+                        <button></button>
                       </td>
                       <td key={i.id + 3}>{i.artist.name}</td>
                       <td key={i.id + 4}>{i.album.title}</td>

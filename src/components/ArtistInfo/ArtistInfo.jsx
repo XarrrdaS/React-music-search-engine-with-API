@@ -15,7 +15,6 @@ function ArtistInfo() {
   const [popularData, setPopularData] = useState([]);
   const [moreInfo, setMoreInfo] = useState([])
   const [currentTrack, setCurrentTrack] = useState('');
-  const audioRef = useRef();
 
   const handleData = (value) => {
     setIsSearching(true);
@@ -70,6 +69,7 @@ function ArtistInfo() {
     return `${minutes}:${seconds}`;
   };
 
+  const audioRef = useRef();
   useEffect(() => {
     if (currentTrack) {
       audioRef.current.src = currentTrack;
