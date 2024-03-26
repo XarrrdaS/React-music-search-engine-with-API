@@ -30,31 +30,22 @@ function ArtistInfo() {
   const [nextUrl, setNextUrl] = useState('');
   const [prevUrl, setPrevUrl] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [chosenArtist, setChosenArtist] = useState('');
+  const [pictureChosenArtist, setPictureChosenArtist] = useState('');
 
-  const artistMoreInfo = useCallback(async () => {
-    const response = await fetch(url);
-    const data = await response.json();
-    if (response.ok) {
-      setMoreInfo(data.data);
-      setIsLoading(false);
-      if (data.next) {
-        setNextUrl(data.next.replace('https://api.deezer.com', '/proxy'));
-      } else {
-        setNextUrl('');
-      }
-      if (data.prev) {
-        setPrevUrl(data.prev.replace('https://api.deezer.com', '/proxy'));
-      } else {
-        setPrevUrl('');
-      }
-    } else {
-      setIsLoading(true);
+  const artistMoreInfo = useCallback((chosenArtist, artistName, artistPicture) => {
+    if (chosenArtist) {
+      setChosenArtist(artistName);
+      setPictureChosenArtist(artistPicture);
+      console.log(chosenArtist);
+      setUrl(chosenArtist.replace('https://api.deezer.com', '/proxy'));
+      setStartIndex(0);
     }
-  }, [url]);
-  
+  }, []);
+    // console.log(url) 
   const [startIndex, setStartIndex] = useState(0);
   
-  const handleChangeNext = (direction) => {
+  const hangleChangePage = (direction) => {
     if (direction === 'next' && nextUrl) {
       setIsLoading(true);
       setUrl(nextUrl);
@@ -67,8 +58,33 @@ function ArtistInfo() {
   };
   
   useEffect(() => {
-    artistMoreInfo();
-  }, [url, artistMoreInfo]);
+    const fetchData = async () => {
+      setIsLoading(true);
+      const response = await fetch(url);
+      const data = await response.json();
+      if (response.ok) {
+        setMoreInfo(data.data);
+        console.log(data.data);
+        setIsLoading(false);
+        if (data.next) {
+          setNextUrl(data.next.replace('https://api.deezer.com', '/proxy'));
+        } else {
+          setNextUrl('');
+        }
+        if (data.prev) {
+          setPrevUrl(data.prev.replace('https://api.deezer.com', '/proxy'));
+        } else {
+          setPrevUrl('');
+        }
+      } else {
+        setIsLoading(true);
+      }
+    };
+
+    if (url) {
+      fetchData();
+    }
+  }, [url]);
   
   const duration = (totalSeconds) => {
     let minutes = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
@@ -107,10 +123,10 @@ function ArtistInfo() {
       {isSearching ? <DisplayData handleData={handleData} song={song} /> :
         (
           <>
-            <h1>{artist.name}</h1>
-            <img src={artist.picture_medium} alt={artist.name} />
-            <button onClick={() => handleChangeNext('prev')}>PREVIOUS</button>
-            <button onClick={() => handleChangeNext('next')}>NEXT</button>
+            <h1>{chosenArtist ? chosenArtist : artist.name}</h1>
+            <img src={pictureChosenArtist ? pictureChosenArtist : artist.picture_medium} alt={chosenArtist ? chosenArtist : artist.name} />
+            <button onClick={() => hangleChangePage('prev')}>PREVIOUS</button>
+            <button onClick={() => hangleChangePage('next')}>NEXT</button>
             {isLoading ? <h1>Loading...</h1> : (
             <table>
               <thead>
@@ -132,7 +148,12 @@ function ArtistInfo() {
                       <button key={track.id + 198} onClick={() => setCurrentTrack(track.preview)}>PLAY</button>
                     </td>
                     <td key={track.id + 4324}>
-                      {track.contributors.map(contributor => contributor.name).join(', ')}
+                      {track.contributors.map((contributor, index) => (
+                        <span key={contributor.id} onClick={() => artistMoreInfo(contributor.tracklist.replace('top?limit=50', 'top?limit=25'), 
+                        contributor.name, contributor.picture_medium)}>
+                          {contributor.name}{index !== track.contributors.length - 1 ? ', ' : ''}
+                        </span>
+                      ))}
                     </td>
                     <td key={track.id + 1234} onClick={() => albumInfo(track)}>{track.album.title}</td>
                     <td key={track.id + 3215}>{duration(track.duration)}</td>
