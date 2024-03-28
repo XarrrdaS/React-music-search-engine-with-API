@@ -27,7 +27,7 @@ function HomePage() {
     let url = '/proxy/chart';
     const response = await fetch(url);
     const data = await response.json();
-    
+
     if (response.ok) {
       setPopularData(data);
       setIsLoading(false);
@@ -87,8 +87,15 @@ function HomePage() {
   }
   const navigate = useNavigate();
 
-  const handleClick = (artist) => {
-    navigate('/artist-informations', { state: { artist } });
+  const handleNavigate = (item) => {
+    if (item.type === 'artist') {
+      const artist = item;
+      navigate('/artist-informations', { state: { artist } });
+    }
+    if (item.type === 'playlist') {
+      const playlist = item;
+      navigate('/playlist-informations', { state: { playlist } });
+    }
   };
   return (
     <div className='container'>
@@ -99,62 +106,62 @@ function HomePage() {
         <DisplayData handleData={handleData} song={song} />
       ) : (
         isLoading ? <h1>Loading...</h1> : (
-        <>
-          <div className='segment'>
-            <p className='heading-carousel'>Explore artists</p>
-            <button className="carousel-arrow left" aria-label="Previous Artist" onClick={() => scrollLeft('artist')}>&#8249;</button>
-            <button className="carousel-arrow right" aria-label="Next Artist" onClick={() => scrollRight('artist')}>&#8250;</button>
+          <>
+            <div className='segment'>
+              <p className='heading-carousel'>Explore artists</p>
+              <button className="carousel-arrow left" aria-label="Previous Artist" onClick={() => scrollLeft('artist')}>&#8249;</button>
+              <button className="carousel-arrow right" aria-label="Next Artist" onClick={() => scrollRight('artist')}>&#8250;</button>
 
-            <div className="carousel-container artist-list">
-              {popularData && popularData.artists && popularData.artists.data.map((artist, index) => (
-                <div
-                  className='carousel-item'
-                  key={index}
-                >
-                      <img src={artist.picture_medium} alt={artist.name} onClick={() => handleClick(artist)}/>
-                  <span className='carousel-container--description'>{artist.name}</span>
-                </div>
-              ))}
+              <div className="carousel-container artist-list">
+                {popularData && popularData.artists && popularData.artists.data.map((artist, index) => (
+                  <div
+                    className='carousel-item'
+                    key={index}
+                  >
+                    <img src={artist.picture_medium} alt={artist.name} onClick={() => handleNavigate(artist)} />
+                    <span className='carousel-container--description'>{artist.name}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
 
-          <div className='segment'>
-            <p className='heading-carousel'>Songs to savor</p>
-            <button className="carousel-arrow left" aria-label="Previous Track" onClick={() => scrollLeft('track')}>&#8249;</button>
-            <button className="carousel-arrow right" aria-label="Next Track" onClick={() => scrollRight('track')}>&#8250;</button>
+            <div className='segment'>
+              <p className='heading-carousel'>Songs to savor</p>
+              <button className="carousel-arrow left" aria-label="Previous Track" onClick={() => scrollLeft('track')}>&#8249;</button>
+              <button className="carousel-arrow right" aria-label="Next Track" onClick={() => scrollRight('track')}>&#8250;</button>
 
-            <div className="carousel-container artist-list">
-              {popularData && popularData.tracks && popularData.tracks.data.map((track, index) => (
-                <div
-                  className='carousel-item'
-                  key={index}
-                >
-                  <img src={track.album.cover_medium} alt={track.title} />
-                  <span className='carousel-container--description'>{track.title}</span>
-                  <span className='carousel-container--description'>{track.artist.name}</span>
+              <div className="carousel-container artist-list">
+                {popularData && popularData.tracks && popularData.tracks.data.map((track, index) => (
+                  <div
+                    className='carousel-item'
+                    key={index}
+                  >
+                    <img src={track.album.cover_medium} alt={track.title} />
+                    <span className='carousel-container--description'>{track.title}</span>
+                    <span className='carousel-container--description'>{track.artist.name}</span>
 
-                </div>
-              ))}
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
 
-          <div className='segment'>
-            <p className='heading-carousel'>Playlists you'll love</p>
-            <button className="carousel-arrow left" aria-label="Previous Playlist" onClick={() => scrollLeft('playlist')}>&#8249;</button>
-            <button className="carousel-arrow right" aria-label="Next Playlist" onClick={() => scrollRight('playlist')}>&#8250;</button>
-            <div className='carousel-container playlist-list'>
-              {popularData && popularData.playlists && popularData.playlists.data.map((playlist, index) => (
-                <div
-                  className='carousel-item'
-                  key={index}
-                >
-                  <img src={playlist.picture_medium} alt={playlist.title} />
-                  <span className='carousel-container--description'>{playlist.title}</span>
-                </div>
-              ))}
+            <div className='segment'>
+              <p className='heading-carousel'>Playlists you'll love</p>
+              <button className="carousel-arrow left" aria-label="Previous Playlist" onClick={() => scrollLeft('playlist')}>&#8249;</button>
+              <button className="carousel-arrow right" aria-label="Next Playlist" onClick={() => scrollRight('playlist')}>&#8250;</button>
+              <div className='carousel-container playlist-list'>
+                {popularData && popularData.playlists && popularData.playlists.data.map((playlist, index) => (
+                  <div
+                    className='carousel-item'
+                    key={index}
+                  >
+                    <img src={playlist.picture_medium} alt={playlist.title} onClick={() => handleNavigate(playlist)} />
+                    <span className='carousel-container--description'>{playlist.title}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        </>
+          </>
         )
       )}
     </div>

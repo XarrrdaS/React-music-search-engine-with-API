@@ -30,10 +30,10 @@ function AlbumInfo() {
         let url = artistAlbum.album.tracklist.replace('https://api.deezer.com', '/proxy');
         const response = await fetch(url);
         const data = await response.json();
-        if (response.ok){
+        if (response.ok) {
             setAlbumList(data.data);
             setIsLoading(false);
-        }else{
+        } else {
             setIsLoading(true);
         }
     }, []);
@@ -77,30 +77,30 @@ function AlbumInfo() {
                     <p>Total Duration: {duration(totalDuration)}</p>
                     <p>Number of tracks: {albumList.length}</p>
                     {isLoading ? <h1>Loading...</h1> : (
-                    <table>
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th></th>
-                                <th>TRACK</th>
-                                <th>DURATION</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {albumList.map((track, index) => {
-                                return (
-                                    <tr key={index}>
-                                        <td>{index + 1}</td>
-                                        <td><img src={`https://e-cdns-images.dzcdn.net/images/artist/${track.md5_image}/56x56-000000-80-0-0.jpg`} /></td>
-                                        <td>{track.title}
-                                            <button onClick={() => setCurrentTrack(track.preview)}>PLAY</button>
-                                        </td>
-                                        <td key={track.id + 5}>{duration(track.duration)}</td>
-                                    </tr>
-                                )
-                            })}
-                        </tbody>
-                    </table>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th>TRACK</th>
+                                    <th>DURATION</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {albumList.map((track, index) => {
+                                    return (
+                                        <tr key={index}>
+                                            <td>{index + 1}</td>
+                                            <td><img src={`https://e-cdns-images.dzcdn.net/images/artist/${track.md5_image}/56x56-000000-80-0-0.jpg`} /></td>
+                                            <td>{track.title}
+                                                <button onClick={() => setCurrentTrack(track.preview)}>PLAY</button>
+                                            </td>
+                                            <td key={track.id + 5}>{duration(track.duration)}</td>
+                                        </tr>
+                                    )
+                                })}
+                            </tbody>
+                        </table>
                     )}
                 </div>
             )}

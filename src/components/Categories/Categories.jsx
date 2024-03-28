@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
-function Categories({ onChooseCategory }){
+function Categories({ onChooseCategory }) {
     const [song, setSong] = useState(null);
 
     const choose = (category) => {
         onChooseCategory(category);
     };
-    return(
+    return (
         <div className='categories-container'>
             <button onClick={() => choose('all')}>All</button>
             <button onClick={() => choose('tracks')}>Tracks</button>

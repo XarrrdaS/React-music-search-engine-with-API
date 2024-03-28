@@ -1,56 +1,56 @@
 import React, { useState, useCallback, useEffect } from "react";
 
 
-function SearchInput(props){
-    const [song, setSong] = useState(null);
-    const [isSearching, setIsSearching] = useState(false);
-    const [inputValue, setInputValue] = useState('');
+function SearchInput(props) {
+  const [song, setSong] = useState(null);
+  const [isSearching, setIsSearching] = useState(false);
+  const [inputValue, setInputValue] = useState('');
 
-    useEffect(() => {
-      if (song !== null){
-        props.handleData(song);
-        props.inputValue(inputValue);
-      }
-    }, [song]);
-    
+  useEffect(() => {
+    if (song !== null) {
+      props.handleData(song);
+      props.inputValue(inputValue);
+    }
+  }, [song]);
 
-    const fetchData = useCallback(async (searchTerm) => {
-        let url = `/proxy/search?q=${searchTerm}`;
-        const response = await fetch(url);
-        const data = await response.json();
-        setSong(data.data);
-      }, []);
 
-      
-    const Search = () => {
-        let data = document.querySelector('.input-field').value;
-        setInputValue(data);
-        fetchData(data);
-        setIsSearching(true);
-        if (data === ''){
-          setIsSearching(false);
-        }
-      }
-  
+  const fetchData = useCallback(async (searchTerm) => {
+    let url = `/proxy/search?q=${searchTerm}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    setSong(data.data);
+  }, []);
 
-    const handleKeyPress = (event) => {
-        if (event.key === 'Enter') {
-          Search();
-        }
-      };
 
-    return (
-        <div>
-         <input 
-            type="text" 
-            placeholder='Artist, track, podcast...'   
-            className='input-field' 
-            onKeyDown={handleKeyPress}
-          />
-          <button onClick={Search}>Search</button>
-          {/* {console.log(song)} */}
-        </div>
-    );
+  const Search = () => {
+    let data = document.querySelector('.input-field').value;
+    setInputValue(data);
+    fetchData(data);
+    setIsSearching(true);
+    if (data === '') {
+      setIsSearching(false);
+    }
+  }
+
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      Search();
+    }
+  };
+
+  return (
+    <div>
+      <input
+        type="text"
+        placeholder='Artist, track, podcast...'
+        className='input-field'
+        onKeyDown={handleKeyPress}
+      />
+      <button onClick={Search}>Search</button>
+      {/* {console.log(song)} */}
+    </div>
+  );
 }
 
 export default SearchInput;

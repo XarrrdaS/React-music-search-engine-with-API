@@ -42,9 +42,9 @@ function ArtistInfo() {
       setStartIndex(0);
     }
   }, []);
-    // console.log(url) 
+  // console.log(url) 
   const [startIndex, setStartIndex] = useState(0);
-  
+
   const hangleChangePage = (direction) => {
     if (direction === 'next' && nextUrl) {
       setIsLoading(true);
@@ -56,7 +56,7 @@ function ArtistInfo() {
       setStartIndex(prevIndex => prevIndex - 25);
     }
   };
-  
+
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -85,7 +85,7 @@ function ArtistInfo() {
       fetchData();
     }
   }, [url]);
-  
+
   const duration = (totalSeconds) => {
     let minutes = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
     let seconds = (totalSeconds % 60).toString().padStart(2, '0');
@@ -128,39 +128,39 @@ function ArtistInfo() {
             <button onClick={() => hangleChangePage('prev')}>PREVIOUS</button>
             <button onClick={() => hangleChangePage('next')}>NEXT</button>
             {isLoading ? <h1>Loading...</h1> : (
-            <table>
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>TRACK</th>
-                  <th>ARTIST</th>
-                  <th>ALBUM</th>
-                  <th>DURATION</th>
-                </tr>
-              </thead>
-              <tbody>
-                {moreInfo ? moreInfo.map((track, index) => (
-                  <tr key={track.id + 1678}>
-                    <td key={track.id + 367845}>{startIndex + index + 1}</td>
-                    <td className='grid track-row' key={track.id + 267455467}>
-                      <img src={track.album.cover_small} alt={track.title} key={track.id + 1} className='images' />
-                      <span key={track.id + 98}>{track.title}</span>
-                      <button key={track.id + 198} onClick={() => setCurrentTrack(track.preview)}>PLAY</button>
-                    </td>
-                    <td key={track.id + 4324}>
-                      {track.contributors.map((contributor, index) => (
-                        <span key={contributor.id} onClick={() => artistMoreInfo(contributor.tracklist.replace('top?limit=50', 'top?limit=25'), 
-                        contributor.name, contributor.picture_medium)}>
-                          {contributor.name}{index !== track.contributors.length - 1 ? ', ' : ''}
-                        </span>
-                      ))}
-                    </td>
-                    <td key={track.id + 1234} onClick={() => albumInfo(track)}>{track.album.title}</td>
-                    <td key={track.id + 3215}>{duration(track.duration)}</td>
+              <table>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>TRACK</th>
+                    <th>ARTIST</th>
+                    <th>ALBUM</th>
+                    <th>DURATION</th>
                   </tr>
-                )) : ''}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {moreInfo ? moreInfo.map((track, index) => (
+                    <tr key={track.id + 1678}>
+                      <td key={track.id + 367845}>{startIndex + index + 1}</td>
+                      <td className='grid track-row' key={track.id + 267455467}>
+                        <img src={track.album.cover_small} alt={track.title} key={track.id + 1} className='images' />
+                        <span key={track.id + 98}>{track.title}</span>
+                        <button key={track.id + 198} onClick={() => setCurrentTrack(track.preview)}>PLAY</button>
+                      </td>
+                      <td key={track.id + 4324}>
+                        {track.contributors.map((contributor, index) => (
+                          <span key={contributor.id} onClick={() => artistMoreInfo(contributor.tracklist.replace('top?limit=50', 'top?limit=25'),
+                            contributor.name, contributor.picture_medium)}>
+                            {contributor.name}{index !== track.contributors.length - 1 ? ', ' : ''}
+                          </span>
+                        ))}
+                      </td>
+                      <td key={track.id + 1234} onClick={() => albumInfo(track)}>{track.album.title}</td>
+                      <td key={track.id + 3215}>{duration(track.duration)}</td>
+                    </tr>
+                  )) : ''}
+                </tbody>
+              </table>
             )}
 
             <audio ref={audioRef} controls className="play-button">
