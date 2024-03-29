@@ -155,7 +155,7 @@ function ArtistInfo() {
                           </span>
                         ))}
                       </td>
-                      <td key={track.id + 1234} onClick={() => albumInfo(track)}>{track.album.title}</td>
+                      <td key={track.id + 1234}><span onClick={() => albumInfo(track)}>{track.album.title}</span></td>
                       <td key={track.id + 3215}>{duration(track.duration)}</td>
                     </tr>
                   )) : ''}

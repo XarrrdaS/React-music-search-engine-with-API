@@ -147,9 +147,10 @@ function ArtistInfo() {
                                                 <button key={track.id + 198} onClick={() => setCurrentTrack(track.preview)}>PLAY</button>
                                             </td>
                                             <td key={track.id + 4324}>
-                                                <span onClick={() => artistMoreInfo(track.artist.tracklist.replace('top?limit=50', 'top?limit=25'), track.artist.name, track.artist.picture_medium)}>{track.artist.name}</span>
+                                                <span onClick={() => artistMoreInfo(track.artist.tracklist.replace('top?limit=50', 'top?limit=25'), 
+                                                track.artist.name, track.artist.picture_medium)}>{track.artist.name}</span>
                                             </td>
-                                            <td key={track.id + 1234} onClick={() => albumInfo(track)}>{track.album.title}</td>
+                                            <td key={track.id + 1234}><span onClick={() => albumInfo(track)}>{track.album.title}</span></td>
                                             <td key={track.id + 3215}>{duration(track.duration)}</td>
                                         </tr>
                                     )) : ''}
