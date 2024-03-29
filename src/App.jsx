@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './components/HomePage/HomePage';
 import ArtistInfo from './components/ArtistInfo/ArtistInfo';
-import AlbumInfo from './components/ArtistInfo/AlbumInfo/AlbumInfo'
+import AlbumInfo from './components/AlbumInfo/AlbumInfo'
 import PlaylistInfo from './components/PlaylistInfo/PlaylistInfo';
 function App() {
   return (

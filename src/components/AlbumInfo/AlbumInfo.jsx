@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
 import { useLocation } from 'react-router-dom';
-import Categories from "../../Categories/Categories";
-import SearchInput from "../../SearchInput/SearchInput";
-import DisplayData from "../../DisplayData/DisplayData";
+import Categories from "../Categories/Categories";
+import SearchInput from "../SearchInput/SearchInput";
+import DisplayData from "../DisplayData/DisplayData";
 
 function AlbumInfo() {
     const location = useLocation();
