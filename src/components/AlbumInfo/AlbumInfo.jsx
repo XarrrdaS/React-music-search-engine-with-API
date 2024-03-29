@@ -6,7 +6,7 @@ import DisplayData from "../DisplayData/DisplayData";
 
 function AlbumInfo() {
     const location = useLocation();
-    const artistAlbum = location.state.artistAlbums;
+    const stateInfo = location.state.album;
     const [albumList, setAlbumList] = useState([])
     const [categoryChange, setCategoryChange] = useState('all')
     const [isSearching, setIsSearching] = useState(false)
@@ -24,10 +24,11 @@ function AlbumInfo() {
             setIsSearching(false);
         }
     };
-    // console.log(artistAlbum)
+    // console.log(stateInfo)
     const [isLoading, setIsLoading] = useState(true);
     const albumInfo = useCallback(async () => {
-        let url = artistAlbum.album.tracklist.replace('https://api.deezer.com', '/proxy');
+        let url = stateInfo.album ? stateInfo.album.tracklist.replace('https://api.deezer.com', '/proxy') :
+            stateInfo.tracklist.replace('https://api.deezer.com', '/proxy');
         const response = await fetch(url);
         const data = await response.json();
         if (response.ok) {
@@ -71,11 +72,26 @@ function AlbumInfo() {
             <SearchInput handleData={handleData} inputValue={inputValue} />
             {isSearching ? <DisplayData handleData={handleData} song={song} /> : (
                 <div>
-                    <img src={artistAlbum.album.cover_medium} alt="Album poster" />
-                    <p>Album title: {artistAlbum.album.title}</p>
-                    <p>Artist: {artistAlbum.artist.name}</p>
-                    <p>Total Duration: {duration(totalDuration)}</p>
-                    <p>Number of tracks: {albumList.length}</p>
+                    {stateInfo && stateInfo.album ? (
+                        <>
+                            <img src={stateInfo.album.cover_medium} alt="Album poster" />
+                            <p>Album title: {stateInfo.album.title}</p>
+                            <p>Artist: {stateInfo.artist.name}</p>
+                            <p>Total Duration: {duration(totalDuration)}</p>
+                            <p>Number of tracks: {albumList.length}</p>
+                        </>
+                    ) : (
+                    <>
+                        <img src={stateInfo.cover_medium ? stateInfo.cover_medium : ''} alt="Album poster" />
+                        <p>Album title: {stateInfo.title}</p>
+                        <p>Artist: {stateInfo.artist.name}</p>
+                        <p>Total Duration: {duration(totalDuration)}</p>
+                        <p>Number of tracks: {albumList.length}</p>
+                    </>
+                    )
+                    }
+
+                    {console.log}
                     {isLoading ? <h1>Loading...</h1> : (
                         <table>
                             <thead>

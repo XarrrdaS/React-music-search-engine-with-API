@@ -112,8 +112,8 @@ function ArtistInfo() {
 
     const navigate = useNavigate();
 
-    const albumInfo = (artistAlbums) => {
-        navigate('/playlist-informations/album', { state: { artistAlbums } });
+    const albumInfo = (album) => {
+        navigate('/playlist-informations/album', { state: { album } });
     };
     return (
         <div>

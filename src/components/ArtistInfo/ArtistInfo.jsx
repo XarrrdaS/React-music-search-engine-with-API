@@ -113,8 +113,8 @@ function ArtistInfo() {
 
   const navigate = useNavigate();
 
-  const albumInfo = (artistAlbums) => {
-    navigate('/artist-informations/album', { state: { artistAlbums } });
+  const albumInfo = (album) => {
+    navigate('/artist-informations/album', { state: { album } });
   };
   return (
     <div>

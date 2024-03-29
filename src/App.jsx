@@ -14,6 +14,8 @@ function App() {
           <Route path="/artist-informations/album" element={<AlbumInfo />} />
           <Route path="/playlist-informations" element={<PlaylistInfo />} />
           <Route path="/playlist-informations/album" element={<AlbumInfo />} />
+          <Route path="/album" element={<AlbumInfo />} />
+
         </Routes>
       </div>
     </Router>

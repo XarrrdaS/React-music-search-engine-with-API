@@ -96,6 +96,10 @@ function HomePage() {
       const playlist = item;
       navigate('/playlist-informations', { state: { playlist } });
     }
+    if (item.type === 'album') {
+      const album = item;
+      navigate('/album', { state: { album } });
+    }
   };
   return (
     <div className='container'>
@@ -107,25 +111,7 @@ function HomePage() {
       ) : (
         isLoading ? <h1>Loading...</h1> : (
           <>
-            <div className='segment'>
-              <p className='heading-carousel'>Explore artists</p>
-              <button className="carousel-arrow left" aria-label="Previous Artist" onClick={() => scrollLeft('artist')}>&#8249;</button>
-              <button className="carousel-arrow right" aria-label="Next Artist" onClick={() => scrollRight('artist')}>&#8250;</button>
-
-              <div className="carousel-container artist-list">
-                {popularData && popularData.artists && popularData.artists.data.map((artist, index) => (
-                  <div
-                    className='carousel-item'
-                    key={index}
-                  >
-                    <img src={artist.picture_medium} alt={artist.name} onClick={() => handleNavigate(artist)} />
-                    <span className='carousel-container--description'>{artist.name}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className='segment'>
+                      <div className='segment'>
               <p className='heading-carousel'>Songs to savor</p>
               <button className="carousel-arrow left" aria-label="Previous Track" onClick={() => scrollLeft('track')}>&#8249;</button>
               <button className="carousel-arrow right" aria-label="Next Track" onClick={() => scrollRight('track')}>&#8250;</button>
@@ -140,6 +126,44 @@ function HomePage() {
                     <span className='carousel-container--description'>{track.title}</span>
                     <span className='carousel-container--description'>{track.artist.name}</span>
 
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className='segment'>
+              <p className='heading-carousel'>Albums to listen all night long!</p>
+              <button className="carousel-arrow left" aria-label="Previous Track" onClick={() => scrollLeft('track')}>&#8249;</button>
+              <button className="carousel-arrow right" aria-label="Next Track" onClick={() => scrollRight('track')}>&#8250;</button>
+
+              <div className="carousel-container artist-list">
+                {console.log(popularData.albums.data[0].title)}
+                {popularData && popularData.albums && popularData.albums.data.map((album, index) => (
+                  <div
+                    className='carousel-item'
+                    key={index}
+                  >
+                    <img src={album.cover_medium} alt={album.title} onClick={() => handleNavigate(album)}/>
+                    <span className='carousel-container--description'>{album.title}</span>
+
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className='segment'>
+              <p className='heading-carousel'>Explore artists</p>
+              <button className="carousel-arrow left" aria-label="Previous Artist" onClick={() => scrollLeft('artist')}>&#8249;</button>
+              <button className="carousel-arrow right" aria-label="Next Artist" onClick={() => scrollRight('artist')}>&#8250;</button>
+
+              <div className="carousel-container artist-list">
+                {popularData && popularData.artists && popularData.artists.data.map((artist, index) => (
+                  <div
+                    className='carousel-item'
+                    key={index}
+                  >
+                    <img src={artist.picture_medium} alt={artist.name} onClick={() => handleNavigate(artist)} />
+                    <span className='carousel-container--description'>{artist.name}</span>
                   </div>
                 ))}
               </div>
