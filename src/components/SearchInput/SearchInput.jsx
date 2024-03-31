@@ -5,20 +5,24 @@ function SearchInput(props) {
   const [song, setSong] = useState(null);
   const [isSearching, setIsSearching] = useState(false);
   const [inputValue, setInputValue] = useState('');
-
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     if (song !== null) {
       props.handleData(song);
       props.inputValue(inputValue);
+      props.isLoadingProps(isLoading);
     }
-  }, [song]);
+  }, [song, isLoading]);
+
 
 
   const fetchData = useCallback(async (searchTerm) => {
+    setIsLoading(true);
     let url = `/proxy/search?q=${searchTerm}`;
     const response = await fetch(url);
     const data = await response.json();
     setSong(data.data);
+    setIsLoading(false);
   }, []);
 
 
@@ -48,7 +52,6 @@ function SearchInput(props) {
         onKeyDown={handleKeyPress}
       />
       <button onClick={Search}>Search</button>
-      {/* {console.log(song)} */}
     </div>
   );
 }
