@@ -22,7 +22,8 @@ function SearchData(props) {
       audioRef.current.play();
     }
   }, [currentTrack]);
-  const [nextUrl, setNextUrl] = useState(props.navigationUrlButtons.next && 
+
+  const [nextUrl, setNextUrl] = useState(props.navigationUrlButtons.next &&
     props.navigationUrlButtons.next.replace('https://api.deezer.com', '/proxy'));
   const [prevUrl, setPrevUrl] = useState('');
   const handleChangePage = (direction) => {
@@ -39,14 +40,12 @@ function SearchData(props) {
   const [moreInfo, setMoreInfo] = useState([])
 
   const fetchData = async (url) => {
+    setIsLoading(true);
     const response = await fetch(url);
     const data = await response.json();
     if (response.ok) {
-      setIsLoading(true);
       setMoreInfo(data.data);
-      // console.log(data.data)
       setSongs(data.data); // Update the songs state with the new data
-      setIsLoading(false);
       if (data.next) {
         setNextUrl(data.next.replace('https://api.deezer.com', '/proxy'));
       } else {
@@ -57,13 +56,16 @@ function SearchData(props) {
       } else {
         setPrevUrl('');
       }
-    } else {
-      setIsLoading(true);
     }
+    setIsLoading(false);
   };
+
   useEffect(() => {
     fetchData(url);
-  }, [url, songs]);
+    setIsLoading(false);
+
+  }, [url]);
+
   // useEffect(() => {
   //   const fetchData = async () => {
   //     // setIsLoading(true);
@@ -112,55 +114,58 @@ function SearchData(props) {
   return (
     <>
       <div className='container'>
+        <button onClick={() => handleChangePage('prev')}>PREVIOUS</button>
+        <button onClick={() => handleChangePage('next')}>NEXT</button>
         {songs && songs.length > 0 || props.song && props.song.length > 0 ? (
           isLoading ? <h1>Loading...</h1> : (
-            
-            <table className='main-table'>
-                    <thead>
-                      <tr>
-                        <th></th>
-                        <th>TRACK</th>
-                        <th>ARTIST</th>
-                        <th>ALBUM</th>
-                        <th>DURATION</th>
+            <>
+              <table className='main-table'>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>TRACK</th>
+                    <th>ARTIST</th>
+                    <th>ALBUM</th>
+                    <th>DURATION</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {songs.length > 0 ? (
+                    songs ? songs.map((track, index) => (
+                      <tr key={track.id + 1678}>
+                        <td key={track.id + 367845}>{startIndex + index + 1}</td>
+                        <td className='grid track-row' key={track.id + 267455467}>
+                          <img src={track.album.cover_small} alt={track.title} key={track.id + 1} className='images' />
+                          <span key={track.id + 98}>{track.title}</span>
+                          <button key={track.id + 198} onClick={() => setCurrentTrack(track.preview)}>PLAY</button>
+                        </td>
+                        <td key={track.id + 4324}>
+                          {track.artist.name}
+                        </td>
+                        <td key={track.id + 1234}><span onClick={() => albumInfo(track)}>{track.album.title}</span></td>
+                        <td key={track.id + 3215}>{duration(track.duration)}</td>
                       </tr>
-                    </thead>
-                    <tbody>
-                      {songs.length > 0 ? (
-                        songs ? songs.map((track, index) => (
-                          <tr key={track.id + 1678}>
-                            <td key={track.id + 367845}>{startIndex + index + 1}</td>
-                            <td className='grid track-row' key={track.id + 267455467}>
-                              <img src={track.album.cover_small} alt={track.title} key={track.id + 1} className='images' />
-                              <span key={track.id + 98}>{track.title}</span>
-                              <button key={track.id + 198} onClick={() => setCurrentTrack(track.preview)}>PLAY</button>
-                            </td>
-                            <td key={track.id + 4324}>
-                              {track.artist.name}
-                            </td>
-                            <td key={track.id + 1234}><span onClick={() => albumInfo(track)}>{track.album.title}</span></td>
-                            <td key={track.id + 3215}>{duration(track.duration)}</td>
-                          </tr>
-                        )) : ''
-                      ) : (props.song ? props.song.map((track, index) => (
-                        <tr key={track.id + 1678}>
-                          <td key={track.id + 367845}>{startIndex + index + 1}</td>
-                          <td className='grid track-row' key={track.id + 267455467}>
-                            <img src={track.album.cover_small} alt={track.title} key={track.id + 1} className='images' />
-                            <span key={track.id + 98}>{track.title}</span>
-                            <button key={track.id + 198} onClick={() => setCurrentTrack(track.preview)}>PLAY</button>
-                          </td>
-                          <td key={track.id + 4324}>
-                            {track.artist.name}
-                          </td>
-                          <td key={track.id + 1234}><span onClick={() => albumInfo(track)}>{track.album.title}</span></td>
-                          <td key={track.id + 3215}>{duration(track.duration)}</td>
-                        </tr>
-                      )) : '')}
-                    </tbody>
-                  </table>
-                )) : <h1>No data!</h1>}
-        
+                    )) : ''
+                  ) : (props.song ? props.song.map((track, index) => (
+                    <tr key={track.id + 1678}>
+                      <td key={track.id + 367845}>{startIndex + index + 1}</td>
+                      <td className='grid track-row' key={track.id + 267455467}>
+                        <img src={track.album.cover_small} alt={track.title} key={track.id + 1} className='images' />
+                        <span key={track.id + 98}>{track.title}</span>
+                        <button key={track.id + 198} onClick={() => setCurrentTrack(track.preview)}>PLAY</button>
+                      </td>
+                      <td key={track.id + 4324}>
+                        {track.artist.name}
+                      </td>
+                      <td key={track.id + 1234}><span onClick={() => albumInfo(track)}>{track.album.title}</span></td>
+                      <td key={track.id + 3215}>{duration(track.duration)}</td>
+                    </tr>
+                  )) : '')}
+                </tbody>
+              </table>
+            </>
+          )) : <h1>No data!</h1>}
+
       </div>
       <audio ref={audioRef} controls className="play-button">
         Your browser does not support the audio element.
