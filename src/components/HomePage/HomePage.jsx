@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './HomePage.css';
 import Categories from '../Categories/Categories';
-import SearchingData from '../SearchingData/SearchingData';
+import SearchData from '../SearchData/SearchData';
 import SearchInput from '../SearchInput/SearchInput';
 
 function HomePage() {
@@ -107,7 +107,7 @@ function HomePage() {
       <Categories onChooseCategory={setCategoryChange} />
       <SearchInput handleData={handleData} inputValue={inputValue} />
       {isSearching ? (
-        <SearchingData handleData={handleData} song={song} />
+        <SearchData handleData={handleData} song={song} />
       ) : (
         isLoading ? <h1>Loading...</h1> : (
           <>

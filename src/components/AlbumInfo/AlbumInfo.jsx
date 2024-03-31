@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect, useRef } from "react";
 import { useLocation } from 'react-router-dom';
 import Categories from "../Categories/Categories";
 import SearchInput from "../SearchInput/SearchInput";
-import SearchingData from "../SearchingData/SearchingData";
+import SearchData from "../SearchData/SearchData";
 
 function AlbumInfo() {
     const location = useLocation();
@@ -70,7 +70,7 @@ function AlbumInfo() {
         <>
             <Categories onChooseCategory={setCategoryChange} />
             <SearchInput handleData={handleData} inputValue={inputValue} />
-            {isSearching ? <SearchingData handleData={handleData} song={song} /> : (
+            {isSearching ? <SearchData handleData={handleData} song={song} /> : (
                 <div>
                     {console.log(albumList)}
                     {stateInfo && stateInfo.album ? (
