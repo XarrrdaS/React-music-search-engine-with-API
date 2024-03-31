@@ -25,6 +25,11 @@ function ArtistInfo() {
             setIsSearching(false);
         }
     };
+
+    const isLoadingProps = useCallback((value) => {
+        setIsLoading(value);
+      }, []);
+      
     const [url, setUrl] = useState(`/proxy/playlist/${playlist.id}/tracks?index=0`);
     const [nextUrl, setNextUrl] = useState('');
     const [prevUrl, setPrevUrl] = useState('');
@@ -118,8 +123,10 @@ function ArtistInfo() {
     return (
         <div>
             <Categories onChooseCategory={setCategoryChange} />
-            <SearchInput handleData={handleData} inputValue={inputValue} />
-            {isSearching ? <SearchData handleData={handleData} song={song} /> :
+            <SearchInput handleData={handleData} inputValue={inputValue} isLoadingProps={isLoadingProps}/>
+            {isSearching ? (
+        isLoading ? <h1>Loading...</h1> : <SearchData handleData={handleData} song={song}/>
+      ) :
                 (
                     <>
                         <h1>{chosenArtist ? chosenArtist : playlist.title}</h1>

@@ -24,6 +24,11 @@ function AlbumInfo() {
             setIsSearching(false);
         }
     };
+
+    const isLoadingProps = useCallback((value) => {
+        setIsLoading(value);
+      }, []);
+      
     // console.log(stateInfo)
     const [isLoading, setIsLoading] = useState(true);
     const albumInfo = useCallback(async () => {
@@ -69,8 +74,10 @@ function AlbumInfo() {
     return (
         <>
             <Categories onChooseCategory={setCategoryChange} />
-            <SearchInput handleData={handleData} inputValue={inputValue} />
-            {isSearching ? <SearchData handleData={handleData} song={song} /> : (
+            <SearchInput handleData={handleData} inputValue={inputValue} isLoadingProps={isLoadingProps}/>
+            {isSearching ? (
+        isLoading ? <h1>Loading...</h1> : <SearchData handleData={handleData} song={song}/>
+      ) : (
                 <div>
                     {console.log(albumList)}
                     {stateInfo && stateInfo.album ? (
