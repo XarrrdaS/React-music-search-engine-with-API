@@ -111,7 +111,7 @@ function HomePage() {
       ) : (
         isLoading ? <h1>Loading...</h1> : (
           <>
-                      <div className='segment'>
+            <div className='segment'>
               <p className='heading-carousel'>Songs to savor</p>
               <button className="carousel-arrow left" aria-label="Previous Track" onClick={() => scrollLeft('track')}>&#8249;</button>
               <button className="carousel-arrow right" aria-label="Next Track" onClick={() => scrollRight('track')}>&#8250;</button>
@@ -143,7 +143,7 @@ function HomePage() {
                     className='carousel-item'
                     key={index}
                   >
-                    <img src={album.cover_medium} alt={album.title} onClick={() => handleNavigate(album)}/>
+                    <img src={album.cover_medium} alt={album.title} onClick={() => handleNavigate(album)} />
                     <span className='carousel-container--description'>{album.title}</span>
 
                   </div>
