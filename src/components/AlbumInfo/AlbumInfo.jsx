@@ -86,8 +86,8 @@ function AlbumInfo() {
                         <img src={stateInfo.cover_medium ? stateInfo.cover_medium : ''} alt="Album poster" />
                         <p>Album title: {stateInfo.title}</p>
                         <p>Artist: {stateInfo.artist.name}</p>
-                        <p>Total Duration: {duration(totalDuration)}</p>
-                        <p>Number of tracks: {albumList && albumList.length}</p>
+                        {(!albumList || albumList.length === 0) ? '' : <p>Total Duration: {duration(totalDuration)}</p>}
+                        {(!albumList || albumList.length === 0) ? '' : <p>Number of tracks: {albumList && albumList.length}</p>}
                     </>
                     )
                     }
