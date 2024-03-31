@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Categories from '../Categories/Categories';
 import SearchInput from '../SearchInput/SearchInput';
-import DisplayData from '../DisplayData/DisplayData';
+import SearchingData from '../SearchingData/SearchingData';
 import './ArtistInfo.css';
 
 function ArtistInfo() {
@@ -120,7 +120,7 @@ function ArtistInfo() {
     <div>
       <Categories onChooseCategory={setCategoryChange} />
       <SearchInput handleData={handleData} inputValue={inputValue} />
-      {isSearching ? <DisplayData handleData={handleData} song={song} /> :
+      {isSearching ? <SearchingData handleData={handleData} song={song} /> :
         (
           <>
             <h1>{chosenArtist ? chosenArtist : artist.name}</h1>

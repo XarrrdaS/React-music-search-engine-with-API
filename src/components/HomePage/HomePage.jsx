@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './HomePage.css';
 import Categories from '../Categories/Categories';
-import DisplayData from '../DisplayData/DisplayData';
+import SearchingData from '../SearchingData/SearchingData';
 import SearchInput from '../SearchInput/SearchInput';
 
 function HomePage() {
@@ -107,11 +107,11 @@ function HomePage() {
       <Categories onChooseCategory={setCategoryChange} />
       <SearchInput handleData={handleData} inputValue={inputValue} />
       {isSearching ? (
-        <DisplayData handleData={handleData} song={song} />
+        <SearchingData handleData={handleData} song={song} />
       ) : (
         isLoading ? <h1>Loading...</h1> : (
           <>
-            <div className='segment'>
+            {/* <div className='segment'>
               <p className='heading-carousel'>Songs to savor</p>
               <button className="carousel-arrow left" aria-label="Previous Track" onClick={() => scrollLeft('track')}>&#8249;</button>
               <button className="carousel-arrow right" aria-label="Next Track" onClick={() => scrollRight('track')}>&#8250;</button>
@@ -129,7 +129,7 @@ function HomePage() {
                   </div>
                 ))}
               </div>
-            </div>
+            </div> */}
 
             <div className='segment'>
               <p className='heading-carousel'>Albums to listen all night long!</p>
