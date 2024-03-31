@@ -6,11 +6,13 @@ function SearchInput(props) {
   const [isSearching, setIsSearching] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [navigationUrlButtons, setNavigationUrlButtons] = useState(null);
   useEffect(() => {
     if (song !== null) {
       props.handleData(song);
       props.inputValue(inputValue);
       props.isLoadingProps(isLoading);
+      props.navigationUrlButtons(navigationUrlButtons);
     }
   }, [song, isLoading]);
 
@@ -23,6 +25,7 @@ function SearchInput(props) {
     const data = await response.json();
     setSong(data.data);
     setIsLoading(false);
+    setNavigationUrlButtons(data);
   }, []);
 
 

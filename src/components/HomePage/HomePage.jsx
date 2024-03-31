@@ -15,20 +15,20 @@ function HomePage() {
   const handleData = (value) => {
     setIsSearching(true);
     setSong(value)
-
   };
-
   const inputValue = (value) => {
     if (value === '') {
       setIsSearching(false);
     }
   };
-  
+
   const isLoadingProps = useCallback((value) => {
     setIsLoading(value);
   }, []);
-
-
+  const [navigationUrlButtons, setNavigationUrlButtons] = useState(null);
+  const navigationUrlButtonsFunc = useCallback((value) => {
+    setNavigationUrlButtons(value);
+  }, []);
   const [isLoading, setIsLoading] = useState(true);
   const fetchPopularData = useCallback(async () => {
     let url = '/proxy/chart';
@@ -113,10 +113,10 @@ function HomePage() {
       {/* {console.log(popularData)} */}
       <Categories onChooseCategory={setCategoryChange} />
       {/* {console.log(isLoadingProps)} */}
-      <SearchInput handleData={handleData} inputValue={inputValue} isLoadingProps={isLoadingProps}/>
+      <SearchInput handleData={handleData} inputValue={inputValue} isLoadingProps={isLoadingProps} navigationUrlButtons={navigationUrlButtonsFunc}/>
       {/* {console.log(isLoadingSearch)} */}
       {isSearching ? (
-        isLoading ? <h1>Loading...</h1> : <SearchData handleData={handleData} song={song}/>
+        isLoading ? <h1>Loading...</h1> : <SearchData handleData={handleData} song={song} navigationUrlButtons={navigationUrlButtons}/>
       ) : (
         isLoading ? <h1>Loading...</h1> : (
           <>
