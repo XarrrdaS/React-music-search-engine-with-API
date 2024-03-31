@@ -114,8 +114,10 @@ function SearchData(props) {
   return (
     <>
       <div className='container'>
-        <button onClick={() => handleChangePage('prev')}>PREVIOUS</button>
-        <button onClick={() => handleChangePage('next')}>NEXT</button>
+        {songs && songs.length > 0 || props.song && props.song.length > 0 ? 
+        <button onClick={() => handleChangePage('prev')}>PREVIOUS</button> : ''}
+        {songs && songs.length > 0 || props.song && props.song.length > 0 ? 
+        <button onClick={() => handleChangePage('next')}>NEXT</button> : ''}
         {songs && songs.length > 0 || props.song && props.song.length > 0 ? (
           isLoading ? <h1>Loading...</h1> : (
             <>
@@ -163,13 +165,13 @@ function SearchData(props) {
                   )) : '')}
                 </tbody>
               </table>
+              <audio ref={audioRef} controls className="play-button">
+                Your browser does not support the audio element.
+              </audio>
             </>
           )) : <h1>No data!</h1>}
 
       </div>
-      <audio ref={audioRef} controls className="play-button">
-        Your browser does not support the audio element.
-      </audio>
     </>
   );
 }

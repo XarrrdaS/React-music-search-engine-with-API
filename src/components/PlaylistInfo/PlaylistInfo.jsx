@@ -29,7 +29,7 @@ function ArtistInfo() {
     const isLoadingProps = useCallback((value) => {
         setIsLoading(value);
       }, []);
-      
+
     const [url, setUrl] = useState(`/proxy/playlist/${playlist.id}/tracks?index=0`);
     const [nextUrl, setNextUrl] = useState('');
     const [prevUrl, setPrevUrl] = useState('');
@@ -120,12 +120,18 @@ function ArtistInfo() {
     const albumInfo = (album) => {
         navigate('/playlist-informations/album', { state: { album } });
     };
+
+    const [navigationUrlButtons, setNavigationUrlButtons] = useState(null);
+    const navigationUrlButtonsFunc = useCallback((value) => {
+      setNavigationUrlButtons(value);
+    }, []);
+
     return (
         <div>
             <Categories onChooseCategory={setCategoryChange} />
-            <SearchInput handleData={handleData} inputValue={inputValue} isLoadingProps={isLoadingProps}/>
+            <SearchInput handleData={handleData} inputValue={inputValue} isLoadingProps={isLoadingProps} navigationUrlButtons={navigationUrlButtonsFunc}/>
             {isSearching ? (
-        isLoading ? <h1>Loading...</h1> : <SearchData handleData={handleData} song={song}/>
+        isLoading ? <h1>Loading...</h1> : <SearchData handleData={handleData} song={song} navigationUrlButtons={navigationUrlButtons}/>
       ) :
                 (
                     <>

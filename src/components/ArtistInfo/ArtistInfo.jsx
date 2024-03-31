@@ -120,12 +120,16 @@ function ArtistInfo() {
   const albumInfo = (album) => {
     navigate('/artist-informations/album', { state: { album } });
   };
+  const [navigationUrlButtons, setNavigationUrlButtons] = useState(null);
+  const navigationUrlButtonsFunc = useCallback((value) => {
+    setNavigationUrlButtons(value);
+  }, []);
   return (
     <div>
       <Categories onChooseCategory={setCategoryChange} />
-      <SearchInput handleData={handleData} inputValue={inputValue} isLoadingProps={isLoadingProps}/>
+      <SearchInput handleData={handleData} inputValue={inputValue} isLoadingProps={isLoadingProps} navigationUrlButtons={navigationUrlButtonsFunc}/>
       {isSearching ? (
-        isLoading ? <h1>Loading...</h1> : <SearchData handleData={handleData} song={song}/>
+        isLoading ? <h1>Loading...</h1> : <SearchData handleData={handleData} song={song} navigationUrlButtons={navigationUrlButtons}/>
       )  :
         (
           <>

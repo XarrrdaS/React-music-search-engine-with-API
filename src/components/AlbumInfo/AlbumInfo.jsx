@@ -28,7 +28,7 @@ function AlbumInfo() {
     const isLoadingProps = useCallback((value) => {
         setIsLoading(value);
       }, []);
-      
+
     // console.log(stateInfo)
     const [isLoading, setIsLoading] = useState(true);
     const albumInfo = useCallback(async () => {
@@ -70,13 +70,16 @@ function AlbumInfo() {
 
     // console.log(albumList)
     const totalDuration = albumList && albumList.reduce((total, track) => total + track.duration, 0);
-
+    const [navigationUrlButtons, setNavigationUrlButtons] = useState(null);
+    const navigationUrlButtonsFunc = useCallback((value) => {
+      setNavigationUrlButtons(value);
+    }, []);
     return (
         <>
             <Categories onChooseCategory={setCategoryChange} />
-            <SearchInput handleData={handleData} inputValue={inputValue} isLoadingProps={isLoadingProps}/>
+            <SearchInput handleData={handleData} inputValue={inputValue} isLoadingProps={isLoadingProps} navigationUrlButtons={navigationUrlButtonsFunc}/>
             {isSearching ? (
-        isLoading ? <h1>Loading...</h1> : <SearchData handleData={handleData} song={song}/>
+        isLoading ? <h1>Loading...</h1> : <SearchData handleData={handleData} song={song} navigationUrlButtons={navigationUrlButtons}/>
       ) : (
                 <div>
                     {console.log(albumList)}
