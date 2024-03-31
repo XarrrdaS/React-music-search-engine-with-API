@@ -64,7 +64,7 @@ function AlbumInfo() {
     };
 
     // console.log(albumList)
-    const totalDuration = albumList.reduce((total, track) => total + track.duration, 0);
+    const totalDuration = albumList && albumList.reduce((total, track) => total + track.duration, 0);
 
     return (
         <>
@@ -72,13 +72,14 @@ function AlbumInfo() {
             <SearchInput handleData={handleData} inputValue={inputValue} />
             {isSearching ? <DisplayData handleData={handleData} song={song} /> : (
                 <div>
+                    {console.log(albumList)}
                     {stateInfo && stateInfo.album ? (
                         <>
                             <img src={stateInfo.album.cover_medium} alt="Album poster" />
                             <p>Album title: {stateInfo.album.title}</p>
                             <p>Artist: {stateInfo.artist.name}</p>
-                            <p>Total Duration: {duration(totalDuration)}</p>
-                            <p>Number of tracks: {albumList.length}</p>
+                            {(!albumList || albumList.length === 0) ? '' : <p>Total Duration: {duration(totalDuration)}</p>}
+                            {(!albumList || albumList.length === 0) ? '' : <p>Number of tracks: {albumList && albumList.length}</p>}
                         </>
                     ) : (
                     <>
@@ -86,13 +87,12 @@ function AlbumInfo() {
                         <p>Album title: {stateInfo.title}</p>
                         <p>Artist: {stateInfo.artist.name}</p>
                         <p>Total Duration: {duration(totalDuration)}</p>
-                        <p>Number of tracks: {albumList.length}</p>
+                        <p>Number of tracks: {albumList && albumList.length}</p>
                     </>
                     )
                     }
-
-                    {console.log}
                     {isLoading ? <h1>Loading...</h1> : (
+                        (!albumList || albumList.length === 0) ? <h1>No tracks found</h1> : (
                         <table>
                             <thead>
                                 <tr>
@@ -103,7 +103,7 @@ function AlbumInfo() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {albumList.map((track, index) => {
+                                {albumList && albumList.map((track, index) => {
                                     return (
                                         <tr key={index}>
                                             <td>{index + 1}</td>
@@ -116,9 +116,10 @@ function AlbumInfo() {
                                     )
                                 })}
                             </tbody>
-                        </table>
+                        </table>)
                     )}
                 </div>
+                
             )}
             <audio ref={audioRef} controls className="play-button">
                 Your browser does not support the audio element.
