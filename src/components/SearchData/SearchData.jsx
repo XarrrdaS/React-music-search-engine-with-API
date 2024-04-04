@@ -112,14 +112,14 @@ function SearchData(props) {
   };
   console.log(isLoading)
 
-  
+
   return (
     <>
       <div className='container'>
-        {songs && songs.length > 0 || props.song && props.song.length > 0 ? 
-        <button onClick={() => handleChangePage('prev')}>PREVIOUS</button> : ''}
-        {songs && songs.length > 0 || props.song && props.song.length > 0 ? 
-        <button onClick={() => handleChangePage('next')}>NEXT</button> : ''}
+        {songs && songs.length > 0 || props.song && props.song.length > 0 ?
+          <button onClick={() => handleChangePage('prev')}>PREVIOUS</button> : ''}
+        {songs && songs.length > 0 || props.song && props.song.length > 0 ?
+          <button onClick={() => handleChangePage('next')}>NEXT</button> : ''}
         {songs && songs.length > 0 || props.song && props.song.length > 0 ? (
           isLoading ? <h1>Loading...</h1> : (
             <>
@@ -144,7 +144,7 @@ function SearchData(props) {
                           <button key={track.id + 198} onClick={() => setCurrentTrack(track.preview)}>PLAY</button>
                         </td>
                         <td key={track.id + 4324} onClick={() => artistMoreInfo(track.artist.tracklist.replace('top?limit=50', 'top?limit=25'),
-                            track.artist.name, track.artist.picture_medium)}>
+                          track.artist.name, track.artist.picture_medium)}>
                           {track.artist.name}
                         </td>
                         <td key={track.id + 1234}><span onClick={() => albumInfo(track)}>{track.album.title}</span></td>
@@ -160,7 +160,7 @@ function SearchData(props) {
                         <button key={track.id + 198} onClick={() => setCurrentTrack(track.preview)}>PLAY</button>
                       </td>
                       <td key={track.id + 4324} onClick={() => artistMoreInfo(track.artist.tracklist.replace('top?limit=50', 'top?limit=25'),
-                            track.artist.name, track.artist.picture_medium)}>
+                        track.artist.name, track.artist.picture_medium)}>
                         {track.artist.name}
                       </td>
                       <td key={track.id + 1234}><span onClick={() => albumInfo(track)}>{track.album.title}</span></td>

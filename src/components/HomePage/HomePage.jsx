@@ -113,10 +113,10 @@ function HomePage() {
       {/* {console.log(popularData)} */}
       <Categories onChooseCategory={setCategoryChange} />
       {/* {console.log(isLoadingProps)} */}
-      <SearchInput handleData={handleData} inputValue={inputValue} isLoadingProps={isLoadingProps} navigationUrlButtons={navigationUrlButtonsFunc}/>
+      <SearchInput handleData={handleData} inputValue={inputValue} isLoadingProps={isLoadingProps} navigationUrlButtons={navigationUrlButtonsFunc} />
       {/* {console.log(isLoadingSearch)} */}
       {isSearching ? (
-        isLoading ? <h1>Loading...</h1> : <SearchData handleData={handleData} song={song} navigationUrlButtons={navigationUrlButtons}/>
+        isLoading ? <h1>Loading...</h1> : <SearchData handleData={handleData} song={song} navigationUrlButtons={navigationUrlButtons} />
       ) : (
         isLoading ? <h1>Loading...</h1> : (
           <>

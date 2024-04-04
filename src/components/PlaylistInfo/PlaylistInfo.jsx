@@ -28,7 +28,7 @@ function ArtistInfo() {
 
     const isLoadingProps = useCallback((value) => {
         setIsLoading(value);
-      }, []);
+    }, []);
 
     const [url, setUrl] = useState(`/proxy/playlist/${playlist.id}/tracks?index=0`);
     const [nextUrl, setNextUrl] = useState('');
@@ -123,16 +123,16 @@ function ArtistInfo() {
 
     const [navigationUrlButtons, setNavigationUrlButtons] = useState(null);
     const navigationUrlButtonsFunc = useCallback((value) => {
-      setNavigationUrlButtons(value);
+        setNavigationUrlButtons(value);
     }, []);
 
     return (
         <div>
             <Categories onChooseCategory={setCategoryChange} />
-            <SearchInput handleData={handleData} inputValue={inputValue} isLoadingProps={isLoadingProps} navigationUrlButtons={navigationUrlButtonsFunc}/>
+            <SearchInput handleData={handleData} inputValue={inputValue} isLoadingProps={isLoadingProps} navigationUrlButtons={navigationUrlButtonsFunc} />
             {isSearching ? (
-        isLoading ? <h1>Loading...</h1> : <SearchData handleData={handleData} song={song} navigationUrlButtons={navigationUrlButtons}/>
-      ) :
+                isLoading ? <h1>Loading...</h1> : <SearchData handleData={handleData} song={song} navigationUrlButtons={navigationUrlButtons} />
+            ) :
                 (
                     <>
                         <h1>{chosenArtist ? chosenArtist : playlist.title}</h1>
@@ -160,8 +160,8 @@ function ArtistInfo() {
                                                 <button key={track.id + 198} onClick={() => setCurrentTrack(track.preview)}>PLAY</button>
                                             </td>
                                             <td key={track.id + 4324}>
-                                                <span onClick={() => artistMoreInfo(track.artist.tracklist.replace('top?limit=50', 'top?limit=25'), 
-                                                track.artist.name, track.artist.picture_medium)}>{track.artist.name}</span>
+                                                <span onClick={() => artistMoreInfo(track.artist.tracklist.replace('top?limit=50', 'top?limit=25'),
+                                                    track.artist.name, track.artist.picture_medium)}>{track.artist.name}</span>
                                             </td>
                                             <td key={track.id + 1234}><span onClick={() => albumInfo(track)}>{track.album.title}</span></td>
                                             <td key={track.id + 3215}>{duration(track.duration)}</td>

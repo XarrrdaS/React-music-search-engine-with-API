@@ -27,7 +27,7 @@ function AlbumInfo() {
 
     const isLoadingProps = useCallback((value) => {
         setIsLoading(value);
-      }, []);
+    }, []);
 
     // console.log(stateInfo)
     const [isLoading, setIsLoading] = useState(true);
@@ -72,15 +72,15 @@ function AlbumInfo() {
     const totalDuration = albumList && albumList.reduce((total, track) => total + track.duration, 0);
     const [navigationUrlButtons, setNavigationUrlButtons] = useState(null);
     const navigationUrlButtonsFunc = useCallback((value) => {
-      setNavigationUrlButtons(value);
+        setNavigationUrlButtons(value);
     }, []);
     return (
         <>
             <Categories onChooseCategory={setCategoryChange} />
-            <SearchInput handleData={handleData} inputValue={inputValue} isLoadingProps={isLoadingProps} navigationUrlButtons={navigationUrlButtonsFunc}/>
+            <SearchInput handleData={handleData} inputValue={inputValue} isLoadingProps={isLoadingProps} navigationUrlButtons={navigationUrlButtonsFunc} />
             {isSearching ? (
-        isLoading ? <h1>Loading...</h1> : <SearchData handleData={handleData} song={song} navigationUrlButtons={navigationUrlButtons}/>
-      ) : (
+                isLoading ? <h1>Loading...</h1> : <SearchData handleData={handleData} song={song} navigationUrlButtons={navigationUrlButtons} />
+            ) : (
                 <div>
                     {console.log(albumList)}
                     {stateInfo && stateInfo.album ? (
@@ -92,44 +92,44 @@ function AlbumInfo() {
                             {(!albumList || albumList.length === 0) ? '' : <p>Number of tracks: {albumList && albumList.length}</p>}
                         </>
                     ) : (
-                    <>
-                        <img src={stateInfo.cover_medium ? stateInfo.cover_medium : ''} alt="Album poster" />
-                        <p>Album title: {stateInfo.title}</p>
-                        <p>Artist: {stateInfo.artist.name}</p>
-                        {(!albumList || albumList.length === 0) ? '' : <p>Total Duration: {duration(totalDuration)}</p>}
-                        {(!albumList || albumList.length === 0) ? '' : <p>Number of tracks: {albumList && albumList.length}</p>}
-                    </>
+                        <>
+                            <img src={stateInfo.cover_medium ? stateInfo.cover_medium : ''} alt="Album poster" />
+                            <p>Album title: {stateInfo.title}</p>
+                            <p>Artist: {stateInfo.artist.name}</p>
+                            {(!albumList || albumList.length === 0) ? '' : <p>Total Duration: {duration(totalDuration)}</p>}
+                            {(!albumList || albumList.length === 0) ? '' : <p>Number of tracks: {albumList && albumList.length}</p>}
+                        </>
                     )
                     }
                     {isLoading ? <h1>Loading...</h1> : (
                         (!albumList || albumList.length === 0) ? <h1>No tracks found</h1> : (
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th></th>
-                                    <th>TRACK</th>
-                                    <th>DURATION</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {albumList && albumList.map((track, index) => {
-                                    return (
-                                        <tr key={index}>
-                                            <td>{index + 1}</td>
-                                            <td><img src={`https://e-cdns-images.dzcdn.net/images/artist/${track.md5_image}/56x56-000000-80-0-0.jpg`} /></td>
-                                            <td>{track.title}
-                                                <button onClick={() => setCurrentTrack(track.preview)}>PLAY</button>
-                                            </td>
-                                            <td key={track.id + 5}>{duration(track.duration)}</td>
-                                        </tr>
-                                    )
-                                })}
-                            </tbody>
-                        </table>)
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th>TRACK</th>
+                                        <th>DURATION</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {albumList && albumList.map((track, index) => {
+                                        return (
+                                            <tr key={index}>
+                                                <td>{index + 1}</td>
+                                                <td><img src={`https://e-cdns-images.dzcdn.net/images/artist/${track.md5_image}/56x56-000000-80-0-0.jpg`} /></td>
+                                                <td>{track.title}
+                                                    <button onClick={() => setCurrentTrack(track.preview)}>PLAY</button>
+                                                </td>
+                                                <td key={track.id + 5}>{duration(track.duration)}</td>
+                                            </tr>
+                                        )
+                                    })}
+                                </tbody>
+                            </table>)
                     )}
                 </div>
-                
+
             )}
             <audio ref={audioRef} controls className="play-button">
                 Your browser does not support the audio element.
