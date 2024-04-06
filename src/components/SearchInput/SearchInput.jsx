@@ -11,10 +11,7 @@ function SearchInput(props) {
 
   useEffect(() => {
     if (song !== null) {
-      props.handleData(song);
-      props.inputValue(inputValue);
-      props.isLoadingProps(isLoading);
-      props.navigationUrlButtons(navigationUrlButtons);
+
       navigate('/search', { state: { song, inputValue, isLoading, navigationUrlButtons } });
     }
   }, [song, isLoading, navigationUrlButtons]);
@@ -35,6 +32,7 @@ function SearchInput(props) {
     fetchData(data);
     setIsSearching(true);
     if (data === '') {
+      navigate('/');
       setIsSearching(false);
     }
   }

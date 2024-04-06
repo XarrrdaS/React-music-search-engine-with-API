@@ -1,15 +1,16 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-
+import Categories from '../Categories/Categories';
+import SearchInput from '../SearchInput/SearchInput';
 
 function SearchData(props) {
   const location = useLocation();
-  const { song, inputValue, navigationUrlButtons } = location.state;
+  const { song, inputValue, navigationUrlButtons, isLoading } = location.state;
   const [currentTrack, setCurrentTrack] = useState('');
   const [startIndex, setStartIndex] = useState(0);
   const [url, setUrl] = useState('');
   const [songs, setSongs] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   console.log(location.state)
   const duration = (totalSeconds) => {
     let minutes = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
@@ -42,7 +43,7 @@ function SearchData(props) {
   const [moreInfo, setMoreInfo] = useState([])
 
   const fetchData = async (url) => {
-    setIsLoading(true);
+    // setIsLoading(true);
     const response = await fetch(url);
     const data = await response.json();
     if (response.ok) {
@@ -59,12 +60,12 @@ function SearchData(props) {
         setPrevUrl('');
       }
     }
-    setIsLoading(false);
+    // setIsLoading(false);
   };
 
   useEffect(() => {
     fetchData(url);
-    setIsLoading(false);
+    // setIsLoading(false);
 
   }, [url]);
 
@@ -112,12 +113,13 @@ function SearchData(props) {
   const albumInfo = (album) => {
     navigate('/album', { state: { album } });
   };
-  // console.log(isLoading)
-  console.log(songs)
+  console.log(isLoading)
 
   return (
     <>
       <div className='container'>
+      <Categories />
+      <SearchInput inputValue={inputValue} />
         {songs && songs.length > 0 || song && song.length > 0 ?
           <button onClick={() => handleChangePage('prev')}>PREVIOUS</button> : ''}
         {songs && songs.length > 0 || song && song.length > 0 ?
