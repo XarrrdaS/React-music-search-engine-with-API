@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import Categories from "../Categories/Categories";
 import SearchInput from "../SearchInput/SearchInput";
 import SearchData from "../SearchData/SearchData";
-import './AlbumInfo.css'
+import './AlbumInfo.css';
 
 function AlbumInfo() {
     const location = useLocation();
