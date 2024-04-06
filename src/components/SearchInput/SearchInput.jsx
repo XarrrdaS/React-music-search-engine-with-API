@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+
 
 function SearchInput(props) {
   const [song, setSong] = useState(null);
@@ -7,13 +7,16 @@ function SearchInput(props) {
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [navigationUrlButtons, setNavigationUrlButtons] = useState(null);
-  const navigate = useNavigate();
-
   useEffect(() => {
     if (song !== null) {
-      navigate('/search', { state: { song, inputValue, isLoading, navigationUrlButtons } });
+      props.handleData(song);
+      props.inputValue(inputValue);
+      props.isLoadingProps(isLoading);
+      props.navigationUrlButtons(navigationUrlButtons);
     }
-  }, [song, isLoading, navigationUrlButtons]);
+  }, [song, isLoading]);
+
+
 
   const fetchData = useCallback(async (searchTerm) => {
     setIsLoading(true);
@@ -25,16 +28,17 @@ function SearchInput(props) {
     setNavigationUrlButtons(data);
   }, []);
 
+
   const Search = () => {
     let data = document.querySelector('.input-field').value;
     setInputValue(data);
     fetchData(data);
     setIsSearching(true);
     if (data === '') {
-      navigate('/');
       setIsSearching(false);
     }
   }
+
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
