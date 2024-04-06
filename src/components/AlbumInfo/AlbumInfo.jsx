@@ -13,6 +13,7 @@ function AlbumInfo() {
     const [isSearching, setIsSearching] = useState(false)
     const [song, setSong] = useState(null);
     const [currentTrack, setCurrentTrack] = useState('');
+    const [inputValueForSearch, setInputValueForSearch] = useState('');
     const audioRef = useRef();
 
     const handleData = (value) => {
@@ -24,6 +25,7 @@ function AlbumInfo() {
         if (value === '') {
             setIsSearching(false);
         }
+        setInputValueForSearch(value);
     };
 
     const isLoadingProps = useCallback((value) => {
@@ -43,11 +45,11 @@ function AlbumInfo() {
         } else {
             setIsLoading(true);
         }
-    }, []);
+    }, [stateInfo]);
 
     useEffect(() => {
         albumInfo()
-    }, [albumInfo])
+    }, [albumInfo, inputValueForSearch, stateInfo])
 
     useEffect(() => {
         if (currentTrack) {
@@ -68,22 +70,23 @@ function AlbumInfo() {
             return `${minutes}:${seconds}`;
         }
     };
-
+    console.log(stateInfo);
     // console.log(albumList)
     const totalDuration = albumList && albumList.reduce((total, track) => total + track.duration, 0);
     const [navigationUrlButtons, setNavigationUrlButtons] = useState(null);
     const navigationUrlButtonsFunc = useCallback((value) => {
         setNavigationUrlButtons(value);
     }, []);
+
     return (
         <>
             <Categories onChooseCategory={setCategoryChange} />
             <SearchInput handleData={handleData} inputValue={inputValue} isLoadingProps={isLoadingProps} navigationUrlButtons={navigationUrlButtonsFunc} />
-            {isSearching ? (
+            {isSearching && inputValueForSearch !== '' ? (
                 isLoading ? <h1>Loading...</h1> : <SearchData handleData={handleData} song={song} navigationUrlButtons={navigationUrlButtons} />
             ) : (
                 <div>
-                    {console.log(albumList)}
+                    {/* {console.log(albumList)} */}
                     {stateInfo && stateInfo.album ? (
                         <>
                             <img src={stateInfo.album.cover_medium} alt="Album poster" />
