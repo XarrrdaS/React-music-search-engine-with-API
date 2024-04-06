@@ -69,34 +69,6 @@ function SearchData(props) {
 
   }, [url]);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     // setIsLoading(true);
-  //     const response = await fetch(url);
-  //     const data = await response.json();
-  //     if (response.ok) {
-  //       setMoreInfo(data.data);
-  //       // console.log(data.data);
-  //       setIsLoading(false);
-  //       if (data.next) {
-  //         setNextUrl(data.next.replace('https://api.deezer.com', '/proxy'));
-  //       } else {
-  //         setNextUrl('');
-  //       }
-  //       if (data.prev) {
-  //         setPrevUrl(data.prev.replace('https://api.deezer.com', '/proxy'));
-  //       } else {
-  //         setPrevUrl('');
-  //       }
-  //     } else {
-  //       // setIsLoading(true);
-  //     }
-  //   };
-
-  //   if (url) {
-  //     fetchData();
-  //   }
-  // }, [url]);
   const [pictureChosenArtist, setPictureChosenArtist] = useState('');
   const [chosenArtist, setChosenArtist] = useState('');
   const artistMoreInfo = useCallback((chosenArtist, artistName, artistPicture) => {

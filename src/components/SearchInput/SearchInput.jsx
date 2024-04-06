@@ -11,7 +11,6 @@ function SearchInput(props) {
 
   useEffect(() => {
     if (song !== null) {
-
       navigate('/search', { state: { song, inputValue, isLoading, navigationUrlButtons } });
     }
   }, [song, isLoading, navigationUrlButtons]);
