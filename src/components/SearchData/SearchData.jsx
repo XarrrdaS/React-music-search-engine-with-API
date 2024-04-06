@@ -3,12 +3,14 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 
 function SearchData(props) {
+  const location = useLocation();
+  const { song, inputValue, navigationUrlButtons } = location.state;
   const [currentTrack, setCurrentTrack] = useState('');
   const [startIndex, setStartIndex] = useState(0);
   const [url, setUrl] = useState('');
   const [songs, setSongs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
+  console.log(location.state)
   const duration = (totalSeconds) => {
     let minutes = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
     let seconds = (totalSeconds % 60).toString().padStart(2, '0');
@@ -23,8 +25,8 @@ function SearchData(props) {
     }
   }, [currentTrack]);
 
-  const [nextUrl, setNextUrl] = useState(props.navigationUrlButtons.next &&
-    props.navigationUrlButtons.next.replace('https://api.deezer.com', '/proxy'));
+  const [nextUrl, setNextUrl] = useState(navigationUrlButtons?.next &&
+    navigationUrlButtons.next.replace('https://api.deezer.com', '/proxy'));
   const [prevUrl, setPrevUrl] = useState('');
   const handleChangePage = (direction) => {
     if (direction === 'next' && nextUrl) {
@@ -116,11 +118,11 @@ function SearchData(props) {
   return (
     <>
       <div className='container'>
-        {songs && songs.length > 0 || props.song && props.song.length > 0 ?
+        {songs && songs.length > 0 || song && song.length > 0 ?
           <button onClick={() => handleChangePage('prev')}>PREVIOUS</button> : ''}
-        {songs && songs.length > 0 || props.song && props.song.length > 0 ?
+        {songs && songs.length > 0 || song && song.length > 0 ?
           <button onClick={() => handleChangePage('next')}>NEXT</button> : ''}
-        {songs && songs.length > 0 || props.song && props.song.length > 0 ? (
+        {songs && songs.length > 0 || song && song.length > 0 ? (
           isLoading ? <h1>Loading...</h1> : (
             <>
               <table className='main-table'>
@@ -151,7 +153,7 @@ function SearchData(props) {
                         <td key={track.id + 3215}>{duration(track.duration)}</td>
                       </tr>
                     )) : ''
-                  ) : (props.song ? props.song.map((track, index) => (
+                  ) : (song ? song.map((track, index) => (
                     <tr key={track.id + 1678}>
                       <td key={track.id + 367845}>{startIndex + index + 1}</td>
                       <td className='grid track-row' key={track.id + 267455467}>

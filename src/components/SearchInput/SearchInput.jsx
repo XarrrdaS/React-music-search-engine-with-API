@@ -15,8 +15,9 @@ function SearchInput(props) {
       props.inputValue(inputValue);
       props.isLoadingProps(isLoading);
       props.navigationUrlButtons(navigationUrlButtons);
+      navigate('/search', { state: { song, inputValue, isLoading, navigationUrlButtons } });
     }
-  }, [song, isLoading]);
+  }, [song, isLoading, navigationUrlButtons]);
 
   const fetchData = useCallback(async (searchTerm) => {
     setIsLoading(true);
@@ -36,10 +37,7 @@ function SearchInput(props) {
     if (data === '') {
       setIsSearching(false);
     }
-    navigate('/search', { state: { song, inputValue, isLoading, navigationUrlButtons } });
   }
-
-
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
