@@ -114,6 +114,10 @@ function SearchData(props) {
   // console.log(isLoading)
   console.log(songs)
 
+
+
+  // artist name/artist picture/artist tracklist if data is empty, display gray text from that cell, without clicking functionality
+  // component for each category (track, artist, album) and import and implement it in here
   return (
     <>
       <div className='container'>
