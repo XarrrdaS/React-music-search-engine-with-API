@@ -109,7 +109,7 @@ function SearchData(props) {
 
   const albumInfo = (album) => {
     navigate('/album', { state: { album } });
-    window.location.reload();
+    // window.location.reload();
   };
   // console.log(isLoading)
   console.log(songs)
